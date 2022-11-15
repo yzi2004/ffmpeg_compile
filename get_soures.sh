@@ -20,9 +20,6 @@ git clone --depth 1 https://code.videolan.org/videolan/x264.git
 echo -e "\e[1;44m get x265  \e[0m"
 hg clone http://hg.videolan.org/x265 
 
-echo -e "\e[1;44m get brotli  \e[0m"
-git clone --depth 1 https://github.com/google/brotli.git
-
 echo -e "\e[1;44m get libass  \e[0m"
 git clone --depth 1 https://github.com/libass/libass.git 
 
