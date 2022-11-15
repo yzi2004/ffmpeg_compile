@@ -158,7 +158,23 @@ meson setup --prefix=$INSTALL_PATH \
     -Ddocs=false \
     -Dbin=false \
     -Dtests=false \
+    --wrap-mode=nofallback \
      $SOURCES_PATH/fribidi 
+ninja && meson install 
+
+################
+# fontconfig compile
+################
+echo -e "\e[1;44m COMPILE fontconfig \e[0m"
+mkdir -p $BUILD_PATH/fontconfig &&  cd $BUILD_PATH/fontconfig
+meson setup --prefix=$INSTALL_PATH \
+     --buildtype=release \
+     --default-library=static \
+     -Ddoc=disabled \
+     -Dtests=disabled \
+     -Dtools=disabled \
+     --wrap-mode=nofallback \
+     $SOURCES_PATH/fontconfig 
 ninja && meson install 
 
 ################
