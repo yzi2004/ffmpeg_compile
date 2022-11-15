@@ -44,8 +44,11 @@ git clone --depth 1 https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 echo -e "\e[1;44m get openjpeg  \e[0m"
 git clone --depth 1 https://github.com/uclouvain/openjpeg.git
 
-echo -e "\e[1;44m get libvpx  \e[0m"
-git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
+#echo -e "\e[1;44m get libyuv  \e[0m"
+#git clone --depth 1 https://chromium.googlesource.com/libyuv/libyuv
+
+#echo -e "\e[1;44m get libvpx  \e[0m"
+#git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
 
 echo -e "\e[1;44m get fdk-aac  \e[0m"
 wget https://sourceforge.net/projects/opencore-amr/files/fdk-aac/fdk-aac-2.0.2.tar.gz/download -O fdk-aac-2.0.2.tar.gz
