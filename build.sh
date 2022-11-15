@@ -203,7 +203,7 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
      -DBUILD_CODEC=off \
      -DPNG_EXECUTABLES=off \
      -DBUILD_PKGCONFIG_FILES=on \     
-     -DPNG_TESTS=off \
+     -DBUILD_TESTING=off \
      $SOURCES_PATH/openjpeg 
 ninja && cmake --install . 
 
