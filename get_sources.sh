@@ -51,9 +51,7 @@ git clone --depth 1 https://github.com/uclouvain/openjpeg.git
 #git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
 
 echo -e "\e[1;44m get fdk-aac  \e[0m"
-wget https://sourceforge.net/projects/opencore-amr/files/fdk-aac/fdk-aac-2.0.2.tar.gz/download -O fdk-aac-2.0.2.tar.gz
-tar zxvf fdk-aac-2.0.2.tar.gz && mv fdk-aac-2.0.2 fdk-aac && rm fdk-aac-2.0.2.tar.gz
+git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
 
 echo -e "\e[1;44m get libpng  \e[0m"
-wget http://prdownloads.sourceforge.net/libpng/libpng-1.6.38.tar.gz?download -O libpng-1.6.38.tar.gz 
-tar zxvf libpng-1.6.38.tar.gz && mv libpng-1.6.38 libpng && rm libpng-1.6.38.tar.gz
+git clone --deptn 1 https://github.com/glennrp/libpng.git
