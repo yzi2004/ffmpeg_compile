@@ -11,7 +11,7 @@ echo "$SOURCES_PATH"
 mkdir -p $SOURCES_PATH
 
 cd $SOURCES_PATH
-echo -e "\e[1;44m GET ffmpeg■■■■■  \e[0m"
+echo -e "\e[1;44m GET ffmpeg  \e[0m"
 git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git ffmpeg 
 
 echo -e "\e[1;44m GET x264  \e[0m"
