@@ -181,22 +181,6 @@ $SOURCES_PATH/libass/configure --prefix=$INSTALL_PATH \
 make -j 8 && make install
 
 ################
-# openjpeg compile
-################
-echo -e "\e[1;44m COMPILE openjpeg \e[0m"
-mkdir -p $BUILD_PATH/openjpeg && cd $BUILD_PATH/openjpeg
-cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-     -DBUILD_SHARED_LIBS=off \
-     -DBUILD_STATIC_LIBS=on \
-     -DBUILD_TESTING=off \
-     -DBUILD_CODEC=off \
-     -DPNG_EXECUTABLES=off \
-     -DBUILD_PKGCONFIG_FILES=on \
-     -DBUILD_TESTING=off \
-     $SOURCES_PATH/openjpeg 
-ninja && cmake --install . 
-
-################
 # AMF install
 ################
 echo -e "\e[1;44m install AMF \e[0m"
