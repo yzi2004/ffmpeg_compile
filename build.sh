@@ -29,7 +29,8 @@ if [ $ENV = "MINGW64" ]; then
 elif [ $ENV = "UCRT64" ]; then
     pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-meson mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-gperf
 elif [ $ENV = "CLANG64" ]; then
-    pacman -S --needed --noconfirm mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-meson mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-gperf
+    pacman -S --needed --noconfirm mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-meson \
+         mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-gperf mingw-w64-clang-x86_64-openjpeg2
 else
     pacman -S --needed --noconfirm mingw-w64-clang-aarch64-toolchain mingw-w64-clang-aarch64-meson mingw-w64-clang-aarch64-cmake mingw-w64-clang-aarch64-gperf
 fi
@@ -99,18 +100,6 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
        -DENABLE_TOOLS=off \
        $SOURCES_PATH/aom 
 ninja && cmake --install . 
-
-################
-# libpng compile
-################
-echo -e "\e[1;44m COMPILE libpng \e[0m"
-mkdir -p $BUILD_PATH/libpng &&  cd $BUILD_PATH/libpng
-cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-     -DPNG_SHARED=off \
-     -DPNG_EXECUTABLES=off \
-     -DPNG_TESTS=off \
-     $SOURCES_PATH/libpng 
-ninja && cmake --install .
 
 ################
 # freetype + harfbuzz compile
