@@ -101,7 +101,8 @@ echo -e "\e[1;44m COMPILE fdk-aac \e[0m"
 ################
 echo -e "\e[1;44m COMPILE brotli \e[0m"
 mkdir -p $BUILD_PATH/brotli &&  cd $BUILD_PATH/brotli
-export LDFLAGS="-static" cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
+export LDFLAGS="-static"
+cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
      -DBUILD_TESTING=off \
   $SOURCES_PATH/brotli
 ninja && cmake --install . 
@@ -152,7 +153,6 @@ mkdir -p $BUILD_PATH/freetype_with_harfbuzz &&  cd $BUILD_PATH/freetype_with_har
 meson setup --prefix=$INSTALL_PATH \
      --buildtype=release \
      --default-library=static \
-     -Dbrotli=disabled \
      --wrap-mode=nofallback \
      $SOURCES_PATH/freetype 
 ninja && meson install 
@@ -222,6 +222,7 @@ $SOURCES_PATH/ffmpeg/configure --prefix=$INSTALL_PATH \
     --enable-libfdk-aac \
     --enable-libass \
     --enable-libaom \
+    --enable-libvpx \
     --enable-libfreetype \
     --enable-libfribidi \
     --enable-libopenjpeg \
