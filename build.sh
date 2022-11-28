@@ -107,6 +107,8 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   $SOURCES_PATH/brotli
 ninja && cmake --install . 
 
+sed -i.orig "s/Requires.private/Requires: libvpx\nRequires.private/" $INSTALL_PATH/lib/pkgconfig/libbrotlidec.pc
+
 ################
 # aom compile
 ################
