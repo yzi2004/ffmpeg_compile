@@ -65,6 +65,27 @@ if [ $ENV = "CLANG64" ]; then
 else
 	sed -i.orig "s/ -lx265/  -lstdc++ -lgcc_s -lgcc -lx265/" $INSTALL_PATH/lib/pkgconfig/x265.pc
 fi
+
+################
+# libvpx compile
+################
+echo -e "\e[1;44m COMPILE libvpx \e[0m"
+$SOURCES_PATH/libvpx/configure --prefix=$INSTALL_PATH \
+--disable-docs \
+--disable-examples \
+--disable-tools \
+--enable-vp9-highbitdepth \
+--enable-better-hw-compatibility \
+--disable-install-docs \
+--disable-install-bins \
+--disable-unit-tests \
+--enable-vp8 \
+--enable-vp9 \
+--enable-small
+make -j 8 && make install
+
+sed -i.orig "s/ -lvpx -lm/ -lpthread -lvpx -lm/" $INSTALL_PATH/lib/pkgconfig/vpx.pc
+
 ################
 # fdk-aac compile
 ################
