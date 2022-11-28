@@ -29,6 +29,9 @@ git clone --depth 1 https://aomedia.googlesource.com/aom
 echo -e "\e[1;44m GET AMF  \e[0m"
 git clone --depth 1 https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git 
 
+echo -e "\e[1;44m brolti AMF  \e[0m"
+git clone --depth 1 https://github.com/google/brotli.git
+
 echo -e "\e[1;44m GET freetype  \e[0m"
 git clone --depth 1 https://gitlab.freedesktop.org/freetype/freetype.git 
 
