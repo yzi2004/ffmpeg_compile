@@ -18,7 +18,7 @@ echo -e "\e[1;44m GET x264  \e[0m"
 git clone --depth 1 https://code.videolan.org/videolan/x264.git 
 
 echo -e "\e[1;44m GET x265  \e[0m"
-git clone --depth 1 https://bitbucket.org/multicoreware/x265_git.git 
+git clone --depth 1 https://bitbucket.org/multicoreware/x265_git.git x265
 
 echo -e "\e[1;44m GET libass  \e[0m"
 git clone --depth 1 https://github.com/libass/libass.git 
