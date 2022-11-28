@@ -44,17 +44,8 @@ git clone --depth 1 https://github.com/fribidi/fribidi.git
 echo -e "\e[1;44m GET fontconfig  \e[0m"
 git clone --depth 1 https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 
-#echo -e "\e[1;44m GET openjpeg  \e[0m"
-#git clone --depth 1 https://github.com/uclouvain/openjpeg.git
-
-#echo -e "\e[1;44m GET libyuv  \e[0m"
-#git clone --depth 1 https://chromium.googlesource.com/libyuv/libyuv
-
-#echo -e "\e[1;44m GET libvpx  \e[0m"
-#git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
+echo -e "\e[1;44m GET libvpx  \e[0m"
+git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
 
 echo -e "\e[1;44m GET fdk-aac  \e[0m"
 git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
-
-#echo -e "\e[1;44m GET libpng  \e[0m"
-#git clone --depth 1 https://github.com/glennrp/libpng.git
