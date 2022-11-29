@@ -157,7 +157,7 @@ meson setup --prefix=$INSTALL_PATH \
      $SOURCES_PATH/freetype 
 ninja && meson install 
 
-sed -i.orig "s/ libbrotlidec/ libvpx/" $INSTALL_PATH/lib/pkgconfig/freetype2.pc
+sed -i.orig "s/ libbrotlidec/ vpx, libbrotlidec/" $INSTALL_PATH/lib/pkgconfig/freetype2.pc
 
 ################
 # fribidi compile
@@ -198,9 +198,9 @@ cd $SOURCES_PATH/libass
 
 mkdir -p $BUILD_PATH/libass &&  cd $BUILD_PATH/libass
 $SOURCES_PATH/libass/configure --prefix=$INSTALL_PATH \
-     --disable-docs  \
-     --enable-static=yes \
-     --enable-shared=no 
+     --enable-compare \
+     --enable-static \
+     --disable-shared
 make -j 8 && make install
 
 ################
