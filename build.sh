@@ -107,8 +107,6 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   $SOURCES_PATH/brotli
 ninja && cmake --install . 
 
-sed -i.orig "s/Requires.private/Requires: libvpx\nRequires.private/" $INSTALL_PATH/lib/pkgconfig/libbrotlidec.pc
-
 ################
 # aom compile
 ################
@@ -158,6 +156,8 @@ meson setup --prefix=$INSTALL_PATH \
      --wrap-mode=nofallback \
      $SOURCES_PATH/freetype 
 ninja && meson install 
+
+sed -i.orig "s/ libbrotlidec/ libvpx/" $INSTALL_PATH/lib/pkgconfig/libbrotlidec.pc
 
 ################
 # fribidi compile
