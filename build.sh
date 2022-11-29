@@ -157,7 +157,7 @@ meson setup --prefix=$INSTALL_PATH \
      $SOURCES_PATH/freetype 
 ninja && meson install 
 
-sed -i.orig "s/ libbrotlidec/ libvpx/" $INSTALL_PATH/lib/pkgconfig/libbrotlidec.pc
+sed -i.orig "s/ libbrotlidec/ libvpx/" $INSTALL_PATH/lib/pkgconfig/freetype2.pc
 
 ################
 # fribidi compile
