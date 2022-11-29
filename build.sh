@@ -38,33 +38,33 @@ fi
 ########################
 # x264 compile         #
 ########################
-#echo -e "\e[1;44m COMPILE x264 \e[0m"
-#mkdir -p $BUILD_PATH/x264 && cd $BUILD_PATH/x264
-#$SOURCES_PATH/x264/configure --prefix=$INSTALL_PATH \
-#    --enable-static \
-#    --disable-cli \
-#    --disable-win32thread 
-#make -j 8 && make install
+echo -e "\e[1;44m COMPILE x264 \e[0m"
+mkdir -p $BUILD_PATH/x264 && cd $BUILD_PATH/x264
+$SOURCES_PATH/x264/configure --prefix=$INSTALL_PATH \
+    --enable-static \
+    --disable-cli \
+    --disable-win32thread 
+make -j 8 && make install
 
 #######################
 # x265 compile        #
 #######################
-#echo -e "\e[1;44m COMPILE x265 \e[0m"
-#mkdir -p $BUILD_PATH/x265 && cd $BUILD_PATH/x265
-#cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-#      -DENABLE_CLI=off \
-#      -DENABLE_SHARED=off \
-#      -DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
-#      -DSTATIC_LINK_CRT=on \
-#      -DENABLE_ASSEMBLY=on \
-#      -DENABLE_HDR10_PLUS=on \
-#      $SOURCES_PATH/x265/source 
-#ninja && cmake --install . 
-#if [ $ENV = "CLANG64" ]; then
-#	sed -i.orig "s/ -lx265/ -lc++ -lx265/" $INSTALL_PATH/lib/pkgconfig/x265.pc
-#else
-#	sed -i.orig "s/ -lx265/  -lstdc++ -lgcc_s -lgcc -lx265/" $INSTALL_PATH/lib/pkgconfig/x265.pc
-#fi
+echo -e "\e[1;44m COMPILE x265 \e[0m"
+mkdir -p $BUILD_PATH/x265 && cd $BUILD_PATH/x265
+cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
+      -DENABLE_CLI=off \
+      -DENABLE_SHARED=off \
+      -DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
+      -DSTATIC_LINK_CRT=on \
+      -DENABLE_ASSEMBLY=on \
+      -DENABLE_HDR10_PLUS=on \
+      $SOURCES_PATH/x265/source 
+ninja && cmake --install . 
+if [ $ENV = "CLANG64" ]; then
+	sed -i.orig "s/ -lx265/ -lc++ -lx265/" $INSTALL_PATH/lib/pkgconfig/x265.pc
+else
+	sed -i.orig "s/ -lx265/  -lstdc++ -lgcc_s -lgcc -lx265/" $INSTALL_PATH/lib/pkgconfig/x265.pc
+fi
 
 ################
 # libvpx compile
@@ -89,12 +89,12 @@ sed -i.orig "s/ -lvpx -lm/ -lpthread -lvpx -lm/" $INSTALL_PATH/lib/pkgconfig/vpx
 ################
 # fdk-aac compile
 ################
-#echo -e "\e[1;44m COMPILE fdk-aac \e[0m"
-# mkdir -p $BUILD_PATH/fdk-aac &&  cd $BUILD_PATH/fdk-aac
-# cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-#     -DBUILD_SHARED_LIBS=off \
-#     $SOURCES_PATH/fdk-aac 
-# ninja && cmake --install . 
+echo -e "\e[1;44m COMPILE fdk-aac \e[0m"
+ mkdir -p $BUILD_PATH/fdk-aac &&  cd $BUILD_PATH/fdk-aac
+ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
+     -DBUILD_SHARED_LIBS=off \
+     $SOURCES_PATH/fdk-aac 
+ ninja && cmake --install . 
 
 ################
 # brotli compile
@@ -110,18 +110,18 @@ ninja && cmake --install .
 ################
 # aom compile
 ################
-#echo -e "\e[1;44m COMPILE aom \e[0m"
-#mkdir -p $BUILD_PATH/aom &&  cd $BUILD_PATH/aom
-#cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-#       -DENABLE_NASM=on \
-#       -DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
-#       -DENABLE_DOCS=off \
-#       -DENABLE_EXAMPLES=off  \
-#       -DENABLE_TESTDATA=off \
-#       -DENABLE_TESTS=off \
-#       -DENABLE_TOOLS=off \
-#       $SOURCES_PATH/aom 
-#ninja && cmake --install . 
+echo -e "\e[1;44m COMPILE aom \e[0m"
+mkdir -p $BUILD_PATH/aom &&  cd $BUILD_PATH/aom
+cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
+       -DENABLE_NASM=on \
+       -DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
+       -DENABLE_DOCS=off \
+       -DENABLE_EXAMPLES=off  \
+       -DENABLE_TESTDATA=off \
+       -DENABLE_TESTS=off \
+       -DENABLE_TOOLS=off \
+       $SOURCES_PATH/aom 
+ninja && cmake --install . 
 
 ################
 # freetype + harfbuzz compile
@@ -218,16 +218,19 @@ echo -e "\e[1;44m COMPILE ffmpeg \e[0m"
 
 mkdir -p $BUILD_PATH/ffmpeg &&  cd $BUILD_PATH/ffmpeg
 $SOURCES_PATH/ffmpeg/configure --prefix=$INSTALL_PATH \
+    --enable-small \
     --enable-asm  \
-#    --enable-libx264 \
-#    --enable-libx265 \
-#    --enable-libfdk-aac \
+    --disable-w32threads \
+    --disable-protocols \
+    --enable-libx264 \
+    --enable-libx265 \
+    --enable-libfdk-aac \
     --enable-libass \
-#    --enable-libaom \
+    --enable-libaom \
     --enable-libvpx \
     --enable-libfreetype \
     --enable-libfribidi \
-#    --enable-libopenjpeg \
+    --enable-libopenjpeg \
     --enable-amf \
     --enable-gpl \
     --disable-debug \
