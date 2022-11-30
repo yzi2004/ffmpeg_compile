@@ -203,6 +203,20 @@ $SOURCES_PATH/libass/configure --prefix=$INSTALL_PATH \
 make -j 8 && make install
 
 ################
+# kvazaar compile
+################
+echo -e "\e[1;44m COMPILE kvazaar \e[0m"
+cd $SOURCES_PATH/kvazaar
+./autogen.sh
+
+mkdir -p $BUILD_PATH/kvazaar &&  cd $BUILD_PATH/kvazaar
+$SOURCES_PATH/kvazaar/configure --prefix=$INSTALL_PATH \
+     --enable-static \
+     --disable-shared
+make -j 8 && make install
+
+
+################
 # AMF install
 ################
 echo -e "\e[1;44m install AMF \e[0m"
