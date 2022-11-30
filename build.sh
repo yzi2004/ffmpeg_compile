@@ -157,7 +157,7 @@ meson setup --prefix=$INSTALL_PATH \
      $SOURCES_PATH/freetype 
 ninja && meson install 
 
-sed -i.orig "s/ -lfreetype -lbz2/ -lfreetype -lbz2 -lvpx -lpthread/" $INSTALL_PATH/lib/pkgconfig/freetype2.pc
+sed -i.orig "s/ libbrotlidec/ libbrotlidec, libbrotlicommon/" $INSTALL_PATH/lib/pkgconfig/freetype2.pc
 
 ################
 # fribidi compile
