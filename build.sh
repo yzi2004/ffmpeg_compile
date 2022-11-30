@@ -244,6 +244,7 @@ $SOURCES_PATH/ffmpeg/configure --prefix=$INSTALL_PATH \
     --enable-libfreetype \
     --enable-libfribidi \
     --enable-libopenjpeg \
+    --enable-libkvazaar \
     --enable-amf \
     --enable-gpl \
     --disable-debug \
