@@ -198,7 +198,6 @@ cd $SOURCES_PATH/libass
 
 mkdir -p $BUILD_PATH/libass &&  cd $BUILD_PATH/libass
 $SOURCES_PATH/libass/configure --prefix=$INSTALL_PATH \
-     --enable-compare \
      --enable-static \
      --disable-shared
 make -j 8 && make install
