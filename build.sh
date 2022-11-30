@@ -240,6 +240,5 @@ $SOURCES_PATH/ffmpeg/configure --prefix=$INSTALL_PATH \
     --disable-ffplay \
     --disable-ffprobe \
     --extra-libs=-static \
-    --extra-ldflags="-LIBPATH:${INSTALL_PATH}/lib" \
     --extra-cflags="--static"
 make -j 8 && make install
