@@ -84,7 +84,7 @@ $SOURCES_PATH/libvpx/configure --prefix=$INSTALL_PATH \
 --enable-small
 make -j 8 && make install
 
-sed -i.orig "s/ -lvpx -lm/ -lpthread -lvpx -lm/" $INSTALL_PATH/lib/pkgconfig/vpx.pc
+sed -i.orig -e "/Libs:/s/$/ -lpthead/" $INSTALL_PATH/lib/pkgconfig/vpx.pc
 
 ################
 # fdk-aac compile
@@ -215,6 +215,7 @@ $SOURCES_PATH/kvazaar/configure --prefix=$INSTALL_PATH \
      --disable-shared
 make -j 8 && make install
 
+sed -i.orig -e "/Cflags:/s/$/ -DKVZ_STATIC_LIB/" -e "/Libs:/s/$/ -lpthead/" $INSTALL_PATH/lib/pkgconfig/kvazaar.pc
 
 ################
 # AMF install
