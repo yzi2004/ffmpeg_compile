@@ -235,7 +235,6 @@ $SOURCES_PATH/ffmpeg/configure --prefix=$INSTALL_PATH \
     --enable-small \
     --enable-asm  \
     --disable-w32threads \
-    --disable-protocols \
     --enable-libx264 \
     --enable-libx265 \
     --enable-libfdk-aac \
