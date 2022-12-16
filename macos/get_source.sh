@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SOURCES_PATH=$HOME/tmp/sources
+SOURCES_PATH=$HOME/ffmpeg_compile/tmp/sources
 
 if [ -d "$SOURCES_PATH" ]; then
   rm -rf $SOURCES_PATH
