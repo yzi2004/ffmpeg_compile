@@ -25,9 +25,6 @@ git clone --depth 1 https://github.com/libass/libass.git
 echo -e "\e[1;44m GET aom  \e[0m"
 git clone --depth 1 https://aomedia.googlesource.com/aom 
 
-echo -e "\e[1;44m GET AMF  \e[0m"
-git clone --depth 1 https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git 
-
 echo -e "\e[1;44m brolti \e[0m"
 git clone --depth 1 https://github.com/google/brotli.git
 
@@ -49,5 +46,3 @@ git clone --depth 1 https://chromium.googlesource.com/webm/libvpx
 echo -e "\e[1;44m GET fdk-aac  \e[0m"
 git clone --depth 1 https://github.com/mstorsjo/fdk-aac.git
 
-echo -e "\e[1;44m GET kvazaar  \e[0m"
-git clone --depth 1 https://github.com/ultravideo/kvazaar.git
