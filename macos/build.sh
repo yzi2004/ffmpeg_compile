@@ -13,26 +13,6 @@ echo "INSTALL_PATH=${INSTALL_PATH}"
 rm -rf $BUILD_PATH
 rm -rf $INSTALL_PATH
 
-####################
-# install tools
-####################
-echo -e "\e[1;44m install tools \e[0m"
-pacman -S --needed --noconfirm diffutils make nasm autoconf automake libtool git mercurial pkg-config
-
-############################
-# install compile toolchain
-###########################
-echo -e "\e[1;44m install compile toolschain:${ENV} \e[0m"
-if [ $ENV = "MINGW64" ]; then
-    pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain mingw-w64-x86_64-meson mingw-w64-x86_64-cmake mingw-w64-x86_64-gperf
-elif [ $ENV = "UCRT64" ]; then
-    pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-meson mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-gperf
-elif [ $ENV = "CLANG64" ]; then
-    pacman -S --needed --noconfirm mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-meson \
-         mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-gperf mingw-w64-clang-x86_64-openjpeg2
-else
-    pacman -S --needed --noconfirm mingw-w64-clang-aarch64-toolchain mingw-w64-clang-aarch64-meson mingw-w64-clang-aarch64-cmake mingw-w64-clang-aarch64-gperf
-fi
 
 ########################
 # x264 compile         #
@@ -95,22 +75,11 @@ echo -e "\e[1;44m COMPILE fdk-aac \e[0m"
  ninja && cmake --install . 
 
 ################
-# brotli compile
-################
-echo -e "\e[1;44m COMPILE brotli \e[0m"
-mkdir -p $BUILD_PATH/brotli &&  cd $BUILD_PATH/brotli
-export LDFLAGS="-static"
-cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-     -DBUILD_TESTING=off \
-  $SOURCES_PATH/brotli
-ninja && cmake --install . 
-
-################
 # aom compile
 ################
 echo -e "\e[1;44m COMPILE aom \e[0m"
 mkdir -p $BUILD_PATH/aom &&  cd $BUILD_PATH/aom
-cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
+cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
        -DENABLE_NASM=on \
        -DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
        -DENABLE_DOCS=off \
@@ -119,7 +88,7 @@ cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
        -DENABLE_TESTS=off \
        -DENABLE_TOOLS=off \
        $SOURCES_PATH/aom 
-ninja && cmake --install . 
+make && make install  
 
 ################
 # freetype + harfbuzz compile
