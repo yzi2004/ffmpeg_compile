@@ -1,11 +1,10 @@
 #!/bin/bash
 
-BASE_PATH=$HOME/tmp
+BASE_PATH=$HOME/ffmpeg_build/tmp
 SOURCES_PATH=$BASE_PATH/sources
-ENV=$MSYSTEM
 
-BUILD_PATH="${BASE_PATH}/build_${ENV}"
-INSTALL_PATH="${BASE_PATH}/installed_${ENV}"
+BUILD_PATH="${BASE_PATH}/build"
+INSTALL_PATH="${BASE_PATH}/installed"
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$INSTALL_PATH/lib/pkgconfig
 
 echo "BUILD_PATH=${BUILD_PATH}"
@@ -42,8 +41,7 @@ echo -e "\e[1;44m COMPILE x264 \e[0m"
 mkdir -p $BUILD_PATH/x264 && cd $BUILD_PATH/x264
 $SOURCES_PATH/x264/configure --prefix=$INSTALL_PATH \
     --enable-static \
-    --disable-cli \
-    --disable-win32thread 
+    --disable-cli 
 make -j 8 && make install
 
 #######################
