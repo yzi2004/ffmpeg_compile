@@ -107,31 +107,16 @@ set_toolchain_clang_paths() {
         LOCAL_GAS_PREPROCESSOR="${BASEDIR}/src/x264/tools/gas-preprocessor.pl"
     fi
 
-    export AR="$(xcrun --sdk $(get_sdk_name) -f ar)"
-    export CC="$(xcrun --sdk $(get_sdk_name) -f clang)"
-    export OBJC="$(xcrun --sdk $(get_sdk_name) -f clang)"
-    export CXX="$(xcrun --sdk $(get_sdk_name) -f clang++)"
+    export AR="$(xcrun --sdk ${TARGET_SDK} -f ar)"
+    export CC="$(xcrun --sdk ${TARGET_SDK} -f clang)"
+    export OBJC="$(xcrun --sdk ${TARGET_SDK} -f clang)"
+    export CXX="$(xcrun --sdk ${TARGET_SDK} -f clang++)"
 
-echo $AR
+echo $CC
 
-    LOCAL_ASMFLAGS="$(get_asmflags $1)"
-    case ${ARCH} in
-        arm64 | arm64e)
-            if [ "$1" == "x265" ]; then
-                export AS="${LOCAL_GAS_PREPROCESSOR}"
-                export AS_ARGUMENTS="-arch aarch64"
-                export ASM_FLAGS="${LOCAL_ASMFLAGS}"
-            else
-                export AS="${LOCAL_GAS_PREPROCESSOR} -arch aarch64 -- ${CC} ${LOCAL_ASMFLAGS}"
-            fi
-        ;;
-        *)
-            export AS="${CC} ${LOCAL_ASMFLAGS}"
-        ;;
-    esac
+    export LD="$(xcrun --sdk ${TARGET_SDK} -f ld)"
+    export RANLIB="$(xcrun --sdk ${TARGET_SDK} -f ranlib)"
+    export STRIP="$(xcrun --sdk ${TARGET_SDK} -f strip)"
 
-    export LD="$(xcrun --sdk $(get_sdk_name) -f ld)"
-    export RANLIB="$(xcrun --sdk $(get_sdk_name) -f ranlib)"
-    export STRIP="$(xcrun --sdk $(get_sdk_name) -f strip)"
 }
 
