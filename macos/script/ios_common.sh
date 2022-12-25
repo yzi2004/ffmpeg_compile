@@ -95,5 +95,43 @@ set_toolchain_clang_paths() {
         # Unescaped left brace in regex is deprecated here (and will be fatal in Perl 5.32), passed through in regex; marked by <-- HERE in m/(?:ld|st)\d\s+({ <-- HERE \s*v(\d+)\.(\d[bhsdBHSD])\s*-\s*v(\d+)\.(\d[bhsdBHSD])\s*})/ at /Users/taner/Projects/mobile-ffmpeg/.tmp/gas-preprocessor.pl line 1065.
         sed -i .tmp "s/s\+({/s\+(\\\\{/g;s/s\*})/s\*\\\\})/g" ${DOWNLOAD_DIR}/gas-preprocessor.pl
     fi
+    
+    if [ ! -d "${BASEDIR}/tools" ]; then
+        mkdir -p "${BASEDIR}/tools"
+    fi
+    
+    cp ${DOWNLOAD_DIR}/gas-preprocessor.pl ${BASEDIR}/tools/gas-preprocessor.pl
+    
+    LOCAL_GAS_PREPROCESSOR="${BASEDIR}/tools/gas-preprocessor.pl"
+    if [ "$1" == "x264" ]; then
+        LOCAL_GAS_PREPROCESSOR="${BASEDIR}/src/x264/tools/gas-preprocessor.pl"
+    fi
+
+    export AR="$(xcrun --sdk $(get_sdk_name) -f ar)"
+    export CC="$(xcrun --sdk $(get_sdk_name) -f clang)"
+    export OBJC="$(xcrun --sdk $(get_sdk_name) -f clang)"
+    export CXX="$(xcrun --sdk $(get_sdk_name) -f clang++)"
+
+echo $AR
+
+    LOCAL_ASMFLAGS="$(get_asmflags $1)"
+    case ${ARCH} in
+        arm64 | arm64e)
+            if [ "$1" == "x265" ]; then
+                export AS="${LOCAL_GAS_PREPROCESSOR}"
+                export AS_ARGUMENTS="-arch aarch64"
+                export ASM_FLAGS="${LOCAL_ASMFLAGS}"
+            else
+                export AS="${LOCAL_GAS_PREPROCESSOR} -arch aarch64 -- ${CC} ${LOCAL_ASMFLAGS}"
+            fi
+        ;;
+        *)
+            export AS="${CC} ${LOCAL_ASMFLAGS}"
+        ;;
+    esac
+
+    export LD="$(xcrun --sdk $(get_sdk_name) -f ld)"
+    export RANLIB="$(xcrun --sdk $(get_sdk_name) -f ranlib)"
+    export STRIP="$(xcrun --sdk $(get_sdk_name) -f strip)"
 }
 
