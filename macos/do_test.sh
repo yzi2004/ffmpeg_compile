@@ -5,7 +5,7 @@ TARGET_SDK=iphoneos
 SDK_PATH=`xcrun --show-sdk-path --sdk iphoneos`
 BASEDIR=/Volumes/dev/ffmpeg_compile/macos
 
-. ${BASEDIR}/script/ios_common.sh
+. ./script/ios_common.sh
 
 LIB_NAME="x264"
 
