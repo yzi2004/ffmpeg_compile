@@ -1,9 +1,13 @@
 #!/bin/bash
 
-ARCH=arm64
-TARGET_SDK=iphoneos
-SDK_PATH=`xcrun --show-sdk-path --sdk iphoneos`
-BASEDIR=/Volumes/dev/ffmpeg_compile/macos
+export ARCH=arm64
+export BASEDIR=/Volumes/dev/ffmpeg_compile
+export TARGET=iphoneos
+export TOOLS="${BASEDIR}/tools"
+export SOURCE="${BASEDIR}/sources"
+export BUILD="${BASEDIR}/build/${TARGET}"
+export SDK_PATH=`xcrun --show-sdk-path --sdk ${TARGET}`
+
 
 . ./script/ios_common.sh
 
