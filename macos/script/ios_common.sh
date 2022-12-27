@@ -26,7 +26,7 @@ download() {
     fi
   fi
 
-  echo ${RC}
+  echo ${RET}
 }
 
 get_arch_name() {
