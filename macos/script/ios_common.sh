@@ -9,14 +9,14 @@ download() {
 
   (curl --fail --location $1 -o ${DOWNLOAD_DIR}/$2 1>>${BASEDIR}/build.log 2>&1)
 
-  local RC=$?
+  local RET=$?
 
-  if [ ${RC} -eq 0 ]; then
+  if [ ${RET} -eq 0 ]; then
     echo -e "\nDEBUG: Downloaded $1 to ${DOWNLOAD_DIR}/$2\n" 1>>${BASEDIR}/build.log 2>&1
   else
     rm -f ${DOWNLOAD_DIR}/$2 1>>${BASEDIR}/build.log 2>&1
 
-    echo -e -n "\nINFO: Failed to download $1 to ${DOWNLOAD_DIR}/$2, rc=${RC}. " 1>>${BASEDIR}/build.log 2>&1
+    echo -e -n "\nINFO: Failed to download $1 to ${DOWNLOAD_DIR}/$2, rc=${RET}. " 1>>${BASEDIR}/build.log 2>&1
 
     if [ "$3" == "exit" ]; then
       echo -e "DEBUG: Build will now exit.\n" 1>>${BASEDIR}/build.log 2>&1
