@@ -11,7 +11,7 @@ mkdir -p $SOURCES_PATH
 
 cd $SOURCES_PATH
 echo -e "\e[1;44m GET ffmpeg  \e[0m"
-git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git -b n6.0 ffmpeg 
+git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git -b n6.1 ffmpeg 
 
 echo -e "\e[1;44m GET x264  \e[0m"
 git clone --depth 1 https://code.videolan.org/videolan/x264.git 
