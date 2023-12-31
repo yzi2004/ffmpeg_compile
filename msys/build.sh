@@ -29,7 +29,7 @@ if [ $ENV = "MINGW64" ]; then
 elif [ $ENV = "UCRT64" ]; then
     pacman -S --needed --noconfirm mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-meson mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-gperf
 elif [ $ENV = "CLANG64" ]; then
-    pacman -S --needed --noconfirm mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-meson \
+    pacman -S --needed --noconfirm mingw-w64-clang-x86_64-clang mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-meson \
          mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-gperf mingw-w64-clang-x86_64-openjpeg2
 else
     pacman -S --needed --noconfirm mingw-w64-clang-aarch64-toolchain mingw-w64-clang-aarch64-meson mingw-w64-clang-aarch64-cmake mingw-w64-clang-aarch64-gperf
