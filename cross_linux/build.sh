@@ -12,6 +12,7 @@ config_dir="$(pwd)/config"
 
 threads="1" 
 
+export PATH="/opt/llvm-mingw-ucrt-x86_64/bin:$PATH"
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 if [ -d "${build_path}" ]; then
