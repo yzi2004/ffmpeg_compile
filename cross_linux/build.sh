@@ -7,8 +7,8 @@ sources_path="$(pwd)/../sources"
 build_path="$(pwd)/../ff_build"
 dist_path="$(pwd)/../ff_dist"
 
-patch_dir="$(pwd)/cross_linux/patches"
-config_dir="$(pwd)/cross_linux/config"
+patch_dir="$(pwd)/patches"
+config_dir="$(pwd)/config"
 
 threads="1" 
 
