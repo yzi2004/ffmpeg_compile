@@ -42,7 +42,7 @@ mkdir -p 8bit 10bit 12bit
 cd 12bit
 
 cmake -G "Ninja" 
-		-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_config.cmake" \
+		-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 		-DCMAKE_INSTALL_PREFIX=$dist_path \
 		-DENABLE_SHARED=OFF \
 		-DENABLE_CLI=OFF \
@@ -58,7 +58,7 @@ ninja
 cd ../10bit
 
 cmake -G "Ninja" 
-		-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_config.cmake" \
+		-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 		-DCMAKE_INSTALL_PREFIX=$dist_path \
 		-DENABLE_SHARED=OFF \
 		-DENABLE_CLI=OFF \
@@ -75,7 +75,7 @@ cd ../8bit
 ln -sf ../10bit/libx265.a libx265_main10.a
 ln -sf ../12bit/libx265.a libx265_main12.a
 cmake -G "Ninja" 
-		-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_config.cmake" \
+		-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 		-DCMAKE_INSTALL_PREFIX=$dist_path \
 		-DENABLE_SHARED=OFF \
 		-DENABLE_CLI=OFF \
