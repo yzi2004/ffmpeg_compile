@@ -88,3 +88,6 @@ cmake -G "Ninja" \
 	$sources_path/x265/source 
 ninja
 
+mv libx265.a libx265_main.a
+ar -M <$patch_dir/x265.mri
+cmake --install .
