@@ -52,7 +52,7 @@ cmake -G "Ninja" \
 	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 	-DENABLE_ASSEMBLY=ON \
 	-DMAIN12=ON \
-	$SOURCES_PATH/x265/source 
+	$sources_path/x265/source 
 ninja 
 
 cd ../10bit
@@ -68,7 +68,7 @@ cmake -G "Ninja" \
 	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 	-DENABLE_ASSEMBLY=ON \
 	-DMAIN12=OFF \
-	$SOURCES_PATH/x265/source 
+	$sources_path/x265/source 
 ninja 
 
 cd ../8bit
@@ -85,6 +85,6 @@ cmake -G "Ninja" \
 	-DEXTRA_LINK_FLAGS=-L. \
 	-DLINKED_10BIT=ON  \
 	-DLINKED_12BIT=ON \
-	$SOURCES_PATH/x265/source 
+	$sources_path/x265/source 
 ninja
 
