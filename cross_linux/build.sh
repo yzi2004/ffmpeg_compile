@@ -129,6 +129,22 @@ cmake -G "Ninja" \
 ninja && cmake --install . 
 popd
 
+#■■■■■■■compile freetype
+mkdir -p freetype 
+pushd freetype
+
+meson setup --prefix=$dist_path \
+	--cross-file=$config_dir/cross_meson.txt \
+     --buildtype=release \
+     --default-library=static \
+     -Dharfbuzz=disabled \
+     -Dbrotli=disabled \
+     --wrap-mode=nofallback \
+     $sources_path/libfreetype2
+#ninja && meson install 
+popd
+
+
 #■■■■■■■compile ffmpeg
 
 mkdir -p ffmpeg
