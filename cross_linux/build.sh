@@ -22,7 +22,7 @@ fi
 mkdir -p $build_path
 cd $build_path
 
-#compile x264
+#■■■■■■■compile x264
 mkdir -p x264
 pushd x264
     $sources_path/x264/configure \
@@ -35,13 +35,14 @@ pushd x264
     make install
 popd
 
-#compile x265
+#■■■■■■■compile x265
 mkdir -p x265
 pushd x265
 
 mkdir -p 8bit 10bit 12bit 
-cd 12bit
 
+#12bit
+cd 12bit
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
@@ -56,8 +57,8 @@ cmake -G "Ninja" \
 	$sources_path/x265/source 
 ninja 
 
+#10bit
 cd ../10bit
-
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
@@ -72,6 +73,7 @@ cmake -G "Ninja" \
 	$sources_path/x265/source 
 ninja 
 
+#8bit
 cd ../8bit
 ln -sf ../10bit/libx265.a libx265_main10.a
 ln -sf ../12bit/libx265.a libx265_main12.a
@@ -91,13 +93,12 @@ ninja
 
 sed -i.orig "s/ -lx265/ -lc++ -lx265/" x265.pc
 sed -i.orig "s/ -lunwind -lunwind//" x265.pc
-
-
 mv libx265.a libx265_main.a
 ar -M <$patch_dir/x265.mri
 cmake --install .
 popd
 
+#■■■■■■■compile fdk-aac
 mkdir -p fdk-aac
 pushd fdk-aac
 
@@ -108,6 +109,27 @@ cmake -G "Ninja" \
 	$sources_path/fdk-aac
 ninja && cmake --install . 
 popd
+
+#■■■■■■■compile libaom
+mkdir -p libaom
+pushd libaom
+
+cmake -G "Ninja" \
+	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+	-DCMAKE_INSTALL_PREFIX=$dist_path \
+	-DENABLE_NASM=ON \
+ 	-DAOM_TARGET_CPU=x86_64 \
+	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
+	-DENABLE_DOCS=OFF \
+	-DENABLE_EXAMPLES=OFF  \
+	-DENABLE_TESTDATA=OFF \
+	-DENABLE_TESTS=OFF \
+	-DENABLE_TOOLS=OFF \
+	$sources_path/libaom
+ninja && cmake --install . 
+popd
+
+#■■■■■■■compile ffmpeg
 
 mkdir -p ffmpeg
 pushd ffmpeg
