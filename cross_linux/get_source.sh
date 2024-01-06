@@ -55,7 +55,7 @@ git clone --depth 1 $libpng_git -b $libpng_ver libpng
 echo -e "\e[1;44m ----brotli----  \e[0m"
 brotli_git="https://github.com/google/brotli.git"
 brotli_ver="v1.1.0"
-git clone --depth 1 $brotli_git -b brotli_ver brotli
+git clone --depth 1 $brotli_git -b $brotli_ver brotli
 
 echo -e "\e[1;44m --freetype2-  \e[0m"
 libfreetype2_git="https://gitlab.freedesktop.org/freetype/freetype.git"
@@ -64,7 +64,7 @@ git clone --depth 1 $libfreetype2_git -b $libfreetype2_ver libfreetype2
 
 echo -e "\e[1;44m --harfbuzz-  \e[0m"
 harfbuzz_git="https://github.com/harfbuzz/harfbuzz.git"
-harfbuzz_ver="8.3"
+harfbuzz_ver="8.3.0"
 git clone --depth 1 $harfbuzz_git -b $harfbuzz_ver harfbuzz
 
 echo -e "\e[1;44m --fribidi-  \e[0m"
