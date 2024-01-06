@@ -17,13 +17,19 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 cd $build_path
 
-mkdir -p fdk-aac
-pushd fdk-aac
+mkdir -p libaom
+pushd libaom
 
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
-	-DBUILD_SHARED_LIBS=OFF \
-	$sources_path/fdk-aac
+	-DENABLE_NASM=ON \
+	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
+	-DENABLE_DOCS=OFF \
+	-DENABLE_EXAMPLES=OFF  \
+	-DENABLE_TESTDATA=OFF \
+	-DENABLE_TESTS=OFF \
+	-DENABLE_TOOLS=OFF \
+	$sources_path/libaom
 ninja && cmake --install . 
 popd
