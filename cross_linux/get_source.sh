@@ -21,11 +21,6 @@ X265_git="https://bitbucket.org/multicoreware/x265_git.git"
 X265_ver="3.5"
 git clone $X265_git -b $X265_ver x265
 
-echo -e "\e[1;44m ---ffmpeg----  \e[0m"
-ffmpeg_git="https://git.ffmpeg.org/ffmpeg.git"
-ffmpeg_ver="n6.1"
-git clone --depth 1 $ffmpeg_git -b $ffmpeg_ver ffmpeg
-
 echo -e "\e[1;44m ---fdk-aac---  \e[0m"
 fdk_git="https://github.com/mstorsjo/fdk-aac.git"
 fdk_ver="v2.0.3"
@@ -81,3 +76,8 @@ echo -e "\e[1;44m -----ass----  \e[0m"
 libass_git="https://github.com/libass/libass.git"
 libass_ver="0.17.1" 
 git clone --depth 1 $libass_git -b $libass_ver libass
+
+echo -e "\e[1;44m ---ffmpeg----  \e[0m"
+ffmpeg_git="https://git.ffmpeg.org/ffmpeg.git"
+ffmpeg_ver="n6.1"
+git clone --depth 1 $ffmpeg_git -b $ffmpeg_ver ffmpeg
