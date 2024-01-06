@@ -17,16 +17,10 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 cd $build_path
 
-mkdir -p freetype 
-pushd freetype
-
-meson setup --prefix=$dist_path \
-	--cross-file=$config_dir/cross_meson.txt \
-     --buildtype=release \
-     --default-library=static \
-     -Dharfbuzz=disabled \
-     -Dbrotli=disabled \
-     --wrap-mode=nofallback \
-     $sources_path/libfreetype2
-#ninja && meson install 
+pushd bzip2
+patch -p0 < $patch_dir/bzip2-1.0.8_brokenstuff.diff
+CC=$host-clang AR=$host-ar RANLIB=$host-ranlib make -j $threads libbz2.a
+#install -m644 bzlib.h $include_path/bzlib.h
+#install -m644 libbz2.a $library_path/libbz2.a
+#install -m644 $bzip_pc_file_path $PKG_CONFIG_PATH
 popd
