@@ -18,7 +18,7 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 cd $build_path
 
 pushd bzip2
-patch -p0 < $patch_dir/bzip2-1.0.8_brokenstuff.diff
+
 CC=$host-clang AR=$host-ar RANLIB=$host-ranlib make -j $threads libbz2.a
 #install -m644 bzlib.h $include_path/bzlib.h
 #install -m644 libbz2.a $library_path/libbz2.a
