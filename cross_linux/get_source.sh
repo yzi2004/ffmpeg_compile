@@ -29,7 +29,7 @@ git clone --depth 1 $fdk_git -b $fdk_ver fdk-aac
 echo -e "\e[1;44m -----mp3----  \e[0m"
 lame_download="https://versaweb.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz"
 curl $lame_download -o lame.tar.gz
-tar xvzf lame.tar.gz && mv lame-3.100 lame
+tar xzf lame.tar.gz && mv lame-3.100 lame
 rm lame.tar.gz
 
 echo -e "\e[1;44m -----aom----  \e[0m"
@@ -40,7 +40,7 @@ git clone --depth 1 $libaom_git -b $libaom_ver libaom
 echo -e "\e[1;44m ----bzip2----  \e[0m"
 bzip2_git="https://sourceware.org/git/bzip2.git"
 bzip2_ver="bzip2-1.0.8"
-git clone --depth 1 $bzip2_git -b $bzip_ver bzip2
+git clone --depth 1 $bzip2_git -b $bzip2_ver bzip2
 
 echo -e "\e[1;44m ----libpng----  \e[0m"
 libpng_git="https://github.com/glennrp/libpng.git"
