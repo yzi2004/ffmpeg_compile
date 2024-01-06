@@ -1,18 +1,18 @@
 #!/bin/bash
-set -x
+
 host="x86_64-w64-mingw32"
 build="x86_64-linux-gnu"
 
-sources_path="$(pwd)/../sources"
-build_path="$(pwd)/../ff_build"
-dist_path="$(pwd)/../ff_dist"
+base_path="$(pwd)/.."
+sources_path="$base_path/../sources"
+build_path="$base_path/../ff_build"
+dist_path="$base_path/../ff_dist"
 
 patch_dir="$(pwd)/patches"
 config_dir="$(pwd)/config"
 
-threads="1" 
+threads="8" 
 
-export PATH="/opt/llvm-mingw-ucrt-x86_64/bin:$PATH"
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 if [ -d "${build_path}" ]; then

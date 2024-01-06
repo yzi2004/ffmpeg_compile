@@ -1,7 +1,7 @@
 #!/bin/bash
-set -x
 
-sources_path="$(pwd)/../sources"
+base_path="$(pwd)/../"
+sources_path="$base_path/../sources"
 
 if [ -d "${sources_path}" ]; then
     rm -rf "${sources_path}"
