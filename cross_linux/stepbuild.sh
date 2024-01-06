@@ -19,8 +19,14 @@ cd $build_path
 
 pushd bzip2
 
-CC=$host-clang AR=$host-ar RANLIB=$host-ranlib make -j $threads libbz2.a
-#install -m644 bzlib.h $include_path/bzlib.h
-#install -m644 libbz2.a $library_path/libbz2.a
-#install -m644 $bzip_pc_file_path $PKG_CONFIG_PATH
+--prefix=$dist_path \
+	--cross-file=$config_dir/cross_meson.txt \
+     --buildtype=release \
+     --default-library=static \
+     -Dharfbuzz=disabled \
+     -Dbrotli=disabled \
+     --wrap-mode=nofallback \
+     $sources_path/bzip2
+ninja
+meson install
 popd
