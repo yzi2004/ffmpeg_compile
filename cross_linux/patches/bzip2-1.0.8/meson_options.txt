@@ -1,0 +1,5 @@
+# bzip2 feature options
+option('disable-cli', type: 'boolean', value: 'false',
+  description: 'Build execute files.')
+option('enable-docs', type: 'boolean', value: 'false',
+  description: 'Generate documentation.')
