@@ -29,5 +29,5 @@ git clone --depth 1 $fdk_git -b $fdk_ver fdk-aac
 
 lame_download="https://versaweb.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz"
 curl $lame_download -o lame.tar.gz
-tar -xvzf lame.tar.gz --directory lame --strip-components=1
+tar xvzf lame.tar.gz && mv lame-3.100 lame
 rm lame.tar.gz
