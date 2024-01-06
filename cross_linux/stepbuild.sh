@@ -24,6 +24,7 @@ cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
 	-DENABLE_NASM=ON \
+ 	-DAOM_TARGET_CPU=x86_64 \
 	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 	-DENABLE_DOCS=OFF \
 	-DENABLE_EXAMPLES=OFF  \
