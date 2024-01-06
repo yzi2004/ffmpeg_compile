@@ -14,3 +14,14 @@ config_dir="$(pwd)/config"
 threads="8" 
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
+
+mkdir -p fdk-aac
+pushd fdk-aac
+
+cmake -G "Ninja" \
+	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+	-DCMAKE_INSTALL_PREFIX=$dist_path \
+	-DBUILD_SHARED_LIBS=OFF \
+	$sources_path/fdk-aac
+ninja && cmake --install . 
+popd
