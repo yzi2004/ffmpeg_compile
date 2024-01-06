@@ -27,6 +27,6 @@ meson setup --prefix=$dist_path \
      -Dharfbuzz=disabled \
      -Dbrotli=disabled \
      --wrap-mode=nofallback \
-     $sources_path/freetype 
-ninja && meson install 
+     $sources_path/libfreetype2
+#ninja && meson install 
 popd
