@@ -20,5 +20,14 @@ X265_ver="3.5"
 git clone $X265_git -b $X265_ver x265
 
 ffmpeg_git="https://git.ffmpeg.org/ffmpeg.git"
-ffmpeg_release="n6.1"
-git clone --depth 1 $ffmpeg_git -b $ffmpeg_release ffmpeg
+ffmpeg_ver="n6.1"
+git clone --depth 1 $ffmpeg_git -b $ffmpeg_ver ffmpeg
+
+fdk_git="https://github.com/mstorsjo/fdk-aac.git"
+fdk_ver="v2.0.3"
+git clone --depth 1 $fds_git -b $fdk_ver fdk-aac
+
+lame_download="https://versaweb.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz"
+curl $lame_download -o lame.tar.gz
+tar -xvzf lame.tar.gz --directory lame --strip-components=1
+rm lame.tar.gz
