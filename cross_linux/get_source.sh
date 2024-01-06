@@ -25,7 +25,7 @@ git clone --depth 1 $ffmpeg_git -b $ffmpeg_ver ffmpeg
 
 fdk_git="https://github.com/mstorsjo/fdk-aac.git"
 fdk_ver="v2.0.3"
-git clone --depth 1 $fds_git -b $fdk_ver fdk-aac
+git clone --depth 1 $fdk_git -b $fdk_ver fdk-aac
 
 lame_download="https://versaweb.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz"
 curl $lame_download -o lame.tar.gz
