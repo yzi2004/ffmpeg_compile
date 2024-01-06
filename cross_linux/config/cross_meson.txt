@@ -1,6 +1,12 @@
 [binaries]
-c = '/usr/bin/i586-mingw32msvc-gcc'
-cpp = '/usr/bin/i586-mingw32msvc-g++'
-ar = '/usr/i586-mingw32msvc/bin/ar'
-strip = '/usr/i586-mingw32msvc/bin/strip'
-exe_wrapper = 'wine' # A command used to run generated executables.
+c = 'x86_64-w64-mingw32-clang'
+cpp = 'x86_64-w64-mingw32-clang'
+ar = 'x86_64-w64-mingw32-ar'
+strip = 'x86_64-w64-mingw32-strip'
+exe_wrapper = 'wine64'
+
+[host_machine]
+system = 'windows'
+cpu_family = 'x86_64'
+cpu = 'x86_64'
+endian = 'little'
