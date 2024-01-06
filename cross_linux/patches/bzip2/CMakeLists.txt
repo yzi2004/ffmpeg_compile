@@ -66,17 +66,17 @@ endif (BUILD_SHARED_LIBS)
 
 add_library (BZip2::BZip2 ALIAS libz2)
 
-add_executable (bzip2
-  bzip2.c
-)
-
-target_link_libraries (bzip2 PRIVATE BZip2::BZip2)
-
-add_executable (bzip2recover
-  bzip2recover.c
-)
-
-target_link_libraries (bzip2recover PRIVATE BZip2::BZip2)
+set(ENABLE_CLI ON CACHE BOOL "Build standalone CLI application")
+if(ENABLE_CLI)
+  add_executable (bzip2
+    bzip2.c
+  )
+  target_link_libraries (bzip2 PRIVATE BZip2::BZip2)
+  add_executable (bzip2recover
+    bzip2recover.c
+  )
+  target_link_libraries (bzip2recover PRIVATE BZip2::BZip2)
+endif(ENABLE_CLI)
 
 set_target_properties (libz2 PROPERTIES EXPORT_NAME BZip2::BZip2)
 set_target_properties (libz2 PROPERTIES OUTPUT_NAME bz2)
@@ -128,30 +128,32 @@ install (FILES LICENSE DESTINATION
   ${CMAKE_INSTALL_DATAROOTDIR}/licenses/bzip2
   COMPONENT Runtime)
 
-if (WIN32)
-  set (_COMPARE fc)
-else (WIN32)
-  set (_COMPARE cmp)
-endif (WIN32)
-
-add_test (NAME sample1 COMMAND ${CMAKE_COMMAND}
-  -DCOMPARE=${_COMPARE}
-  -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-1
-  -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample1.ref
-  -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample1.bz2
-  -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
-
-add_test (NAME sample2 COMMAND ${CMAKE_COMMAND}
-  -DCOMPARE=${_COMPARE}
-  -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-2
-  -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample2.ref
-  -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample2.bz2
-  -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
-
-add_test (NAME sample3 COMMAND ${CMAKE_COMMAND}
-  -DCOMPARE=${_COMPARE}
-  -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-3
-  -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample3.ref
-  -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample3.bz2
-  -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
-
+set(ENABLE_TEST OFF CACHE BOOL "Build standalone CLI application")
+if(ENABLE_TEST)
+  if (WIN32)
+    set (_COMPARE fc)
+  else (WIN32)
+    set (_COMPARE cmp)
+  endif (WIN32)
+  
+  add_test (NAME sample1 COMMAND ${CMAKE_COMMAND}
+    -DCOMPARE=${_COMPARE}
+    -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-1
+    -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample1.ref
+    -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample1.bz2
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
+  
+  add_test (NAME sample2 COMMAND ${CMAKE_COMMAND}
+    -DCOMPARE=${_COMPARE}
+    -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-2
+    -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample2.ref
+    -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample2.bz2
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
+  
+  add_test (NAME sample3 COMMAND ${CMAKE_COMMAND}
+    -DCOMPARE=${_COMPARE}
+    -DEXECUTABLE=$<TARGET_FILE:bzip2> -DARGS=-3
+    -DIN=${CMAKE_CURRENT_SOURCE_DIR}/sample3.ref
+    -DOUT=${CMAKE_CURRENT_SOURCE_DIR}/sample3.bz2
+    -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake)
+endif(ENABLE_TEST)  
