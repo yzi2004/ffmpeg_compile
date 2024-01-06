@@ -2,6 +2,7 @@
 
 base_path="$(pwd)/../../work"
 sources_path="$base_path/sources"
+patch_path="$(pwd)/patches"
 
 if [ -d "${sources_path}" ]; then
     rm -rf "${sources_path}"
@@ -41,6 +42,8 @@ echo -e "\e[1;44m ----bzip2----  \e[0m"
 bzip2_git="https://sourceware.org/git/bzip2.git"
 bzip2_ver="bzip2-1.0.8"
 git clone --depth 1 $bzip2_git -b $bzip2_ver bzip2
+
+patch -p0 < $patch_dir/bzip2-1.0.8_brokenstuff.diff
 
 echo -e "\e[1;44m ----libpng----  \e[0m"
 libpng_git="https://github.com/glennrp/libpng.git"
