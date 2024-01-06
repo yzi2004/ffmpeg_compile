@@ -21,7 +21,7 @@ mkdir -p freetype
 pushd freetype
 
 meson setup --prefix=$dist_path \
-	--cross-file=$config_dir/cross_meson.txt
+	--cross-file=$config_dir/cross_meson.txt \
      --buildtype=release \
      --default-library=static \
      -Dharfbuzz=disabled \
