@@ -11,23 +11,58 @@ mkdir -p $sources_path
 
 cd $sources_path
 
+echo -e "\e[1;44m ----x264-----  \e[0m"
 X264_git="https://code.videolan.org/videolan/x264.git"
 X264_ver="stable"
 git clone --depth 1 $X264_git -b $X264_ver x264
 
+echo -e "\e[1;44m ----x265-----  \e[0m"
 X265_git="https://bitbucket.org/multicoreware/x265_git.git"
 X265_ver="3.5"
 git clone $X265_git -b $X265_ver x265
 
+echo -e "\e[1;44m ---ffmpeg----  \e[0m"
 ffmpeg_git="https://git.ffmpeg.org/ffmpeg.git"
 ffmpeg_ver="n6.1"
 git clone --depth 1 $ffmpeg_git -b $ffmpeg_ver ffmpeg
 
+echo -e "\e[1;44m ---fdk-aac---  \e[0m"
 fdk_git="https://github.com/mstorsjo/fdk-aac.git"
 fdk_ver="v2.0.3"
 git clone --depth 1 $fdk_git -b $fdk_ver fdk-aac
 
+echo -e "\e[1;44m -----mp3----  \e[0m"
 lame_download="https://versaweb.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz"
 curl $lame_download -o lame.tar.gz
 tar xvzf lame.tar.gz && mv lame-3.100 lame
 rm lame.tar.gz
+
+echo -e "\e[1;44m -----aom----  \e[0m"
+libaom_git="https://aomedia.googlesource.com/aom"
+libaom_ver="v3.8.0"
+git clone --depth 1 $libaom_git -b $libaom_ver libaom
+
+echo -e "\e[1;44m --freetype2-  \e[0m"
+libfreetype2_git="https://gitlab.freedesktop.org/freetype/freetype.git"
+libfreetype2_ver="VER-2-13-2"
+git clone --depth 1 $libfreetype2_git -b $libfreetype2_ver libfreetype2
+
+echo -e "\e[1;44m --harfbuzz-  \e[0m"
+harfbuzz_git="https://github.com/harfbuzz/harfbuzz.git"
+harfbuzz_ver="8.3"
+git clone --depth 1 $harfbuzz_git -b $harfbuzz_ver harfbuzz
+
+echo -e "\e[1;44m --fribidi-  \e[0m"
+fribidi_git="https://github.com/fribidi/fribidi.git"
+fribidi_ver="v1.0.13" 
+git clone --depth 1 $fribidi_git -b $fribidi_ver fribidi
+
+echo -e "\e[1;44m --fontconfig-  \e[0m"
+fontconfig_git="https://gitlab.freedesktop.org/fontconfig/fontconfig.git"
+fontconfig_ver="2.15.0"
+git clone --depth 1 $fontconfig_git -b $fontconfig_ver fontconfig
+
+echo -e "\e[1;44m -----ass----  \e[0m"
+libass_git="https://github.com/libass/libass.git"
+libass_ver="0.17.1" 
+git clone --depth 1 $libass_git -b $libass_ver libass
