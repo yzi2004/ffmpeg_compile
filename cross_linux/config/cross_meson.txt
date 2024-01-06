@@ -2,6 +2,7 @@
 c = 'x86_64-w64-mingw32-clang'
 cpp = 'x86_64-w64-mingw32-clang'
 ar = 'x86_64-w64-mingw32-ar'
+rc = 'x86_64-w64-mingw32-windres'
 strip = 'x86_64-w64-mingw32-strip'
 exe_wrapper = 'wine64'
 
