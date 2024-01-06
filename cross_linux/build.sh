@@ -3,10 +3,10 @@
 host="x86_64-w64-mingw32"
 build="x86_64-linux-gnu"
 
-base_path="$(pwd)/../work"
-sources_path="$base_path/../sources"
-build_path="$base_path/../ff_build"
-dist_path="$base_path/../ff_dist"
+base_path="$(pwd)/../../work"
+sources_path="$base_path/sources"
+build_path="$base_path/ff_build"
+dist_path="$base_path/ff_dist"
 
 patch_dir="$(pwd)/patches"
 config_dir="$(pwd)/config"
@@ -48,7 +48,7 @@ cmake -G "Ninja" \
 	-DENABLE_SHARED=OFF \
 	-DENABLE_CLI=OFF \
 	-DEXPORT_C_API=ON \
-	-DSTATIC_LINK_CRT=ON \
+	-DSTATIC_LINK_CRT=OFF \
 	-DHIGH_BIT_DEPTH=ON \
 	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 	-DENABLE_ASSEMBLY=ON \
@@ -64,7 +64,7 @@ cmake -G "Ninja" \
 	-DENABLE_SHARED=OFF \
 	-DENABLE_CLI=OFF \
 	-DEXPORT_C_API=ON \
-	-DSTATIC_LINK_CRT=ON \
+	-DSTATIC_LINK_CRT=OFF \
 	-DHIGH_BIT_DEPTH=ON \
 	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 	-DENABLE_ASSEMBLY=ON \
@@ -80,7 +80,7 @@ cmake -G "Ninja" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
 	-DENABLE_SHARED=OFF \
 	-DENABLE_CLI=OFF \
-	-DEXPORT_C_API=ON \
+	-DEXPORT_C_API=OFF \
 	-DSTATIC_LINK_CRT=ON \
 	-DEXTRA_LIB="x265_main10.a;x265_main12.a" \
 	-DEXTRA_LINK_FLAGS=-L. \
@@ -89,8 +89,41 @@ cmake -G "Ninja" \
 	$sources_path/x265/source 
 ninja
 
+sed -i.orig "s/ -lx265/ -lc++ -lx265/" x265.pc
+sed -i.orig "s/ -lunwind -lunwind//" x265.pc
+
+
 mv libx265.a libx265_main.a
 ar -M <$patch_dir/x265.mri
 cmake --install .
 
 popd
+
+mkdir -p ffmpeg
+pushd ffmpeg
+
+$sources_path/ffmpeg/configure --prefix=$dist_path \
+	--arch=x86_64 \
+	--target-os=mingw32 \
+	--cross-prefix=$host- \
+	--pkg-config=pkg-config \
+	--pkg-config-flags=--static \
+	--enable-small \
+	--enable-asm \
+	--disable-w32threads \
+	--enable-libx264 \
+	--enable-libx265 \
+	--disable-debug \
+	--disable-optimizations \
+	--enable-version3 \
+	--enable-gpl \
+	--disable-doc \
+	--enable-nonfree \
+	--disable-ffplay \
+	--disable-ffprobe \
+	--extra-libs=-static \
+	--extra-ldflags="-LIBPATH:${dist_path}/lib" \
+	--extra-cflags="--static"
+
+make -j $threads
+make install

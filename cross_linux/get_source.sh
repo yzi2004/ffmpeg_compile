@@ -1,7 +1,7 @@
 #!/bin/bash
 
-base_path="$(pwd)/../work"
-sources_path="$base_path/../sources"
+base_path="$(pwd)/../../work"
+sources_path="$base_path/sources"
 
 if [ -d "${sources_path}" ]; then
     rm -rf "${sources_path}"
