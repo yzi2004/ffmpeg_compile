@@ -2,7 +2,8 @@
 
 base_path="$(pwd)/../../work"
 sources_path="$base_path/sources"
-patch_path="$(pwd)/patches"
+
+patch_dir="$(pwd)/patches"
 
 if [ -d "${sources_path}" ]; then
     rm -rf "${sources_path}"
