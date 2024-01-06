@@ -3,7 +3,7 @@
 host="x86_64-w64-mingw32"
 build="x86_64-linux-gnu"
 
-base_path="$(pwd)/.."
+base_path="$(pwd)/../work"
 sources_path="$base_path/../sources"
 build_path="$base_path/../ff_build"
 dist_path="$base_path/../ff_dist"
@@ -92,3 +92,5 @@ ninja
 mv libx265.a libx265_main.a
 ar -M <$patch_dir/x265.mri
 cmake --install .
+
+popd

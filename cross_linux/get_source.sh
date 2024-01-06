@@ -1,6 +1,6 @@
 #!/bin/bash
 
-base_path="$(pwd)/../"
+base_path="$(pwd)/../work"
 sources_path="$base_path/../sources"
 
 if [ -d "${sources_path}" ]; then
