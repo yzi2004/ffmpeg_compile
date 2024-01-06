@@ -96,7 +96,17 @@ sed -i.orig "s/ -lunwind -lunwind//" x265.pc
 mv libx265.a libx265_main.a
 ar -M <$patch_dir/x265.mri
 cmake --install .
+popd
 
+mkdir -p fdk-aac
+pushd fdk-aac
+
+cmake -G "Ninja" \
+	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+	-DCMAKE_INSTALL_PREFIX=$dist_path \
+	-DBUILD_SHARED_LIBS=OFF \
+	$sources_path/fdk-aac
+ninja && cmake --install . 
 popd
 
 mkdir -p ffmpeg
