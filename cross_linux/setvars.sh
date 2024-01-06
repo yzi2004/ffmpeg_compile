@@ -15,6 +15,8 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
+cd $build_path
+
 mkdir -p fdk-aac
 pushd fdk-aac
 
