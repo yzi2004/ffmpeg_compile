@@ -42,6 +42,21 @@ libaom_git="https://aomedia.googlesource.com/aom"
 libaom_ver="v3.8.0"
 git clone --depth 1 $libaom_git -b $libaom_ver libaom
 
+echo -e "\e[1;44m ----bzip2----  \e[0m"
+bzip2_git="https://sourceware.org/git/bzip2.git"
+bzip2_ver="bzip2-1.0.8"
+git clone --depth 1 $bzip2_git -b $bzip_ver bzip2
+
+echo -e "\e[1;44m ----libpng----  \e[0m"
+libpng_git="https://github.com/glennrp/libpng.git"
+libpng_ver="v1.6.40"
+git clone --depth 1 $libpng_git -b $libpng_ver libpng
+
+echo -e "\e[1;44m ----brotli----  \e[0m"
+brotli_git="https://github.com/google/brotli.git"
+brotli_ver="v1.1.0"
+git clone --depth 1 $brotli_git -b brotli_ver brotli
+
 echo -e "\e[1;44m --freetype2-  \e[0m"
 libfreetype2_git="https://gitlab.freedesktop.org/freetype/freetype.git"
 libfreetype2_ver="VER-2-13-2"
