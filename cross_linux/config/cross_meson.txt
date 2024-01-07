@@ -16,7 +16,8 @@ alignment_char = 1
 alignment_void* = 4
 alignment_double = 4
 
-pkg_config_libdir = '$dist_path/lib/pkgconfig'
+sys_root = '/opt/llvm-mingw-ucrt-x86_64'
+pkg_config_libdir = '/home/yzi/work/ff_dist/lib/pkgconfig'
 
 [host_machine]
 system = 'windows'

@@ -17,16 +17,20 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 cd $build_path
 
-pushd bzip2
+if [ -d "${build_path}/freetype" ]; then
+    rm -rf "${build_path}/freetype"
+fi
 
---prefix=$dist_path \
+mkdir -p freetype 
+pushd freetype
+
+meson setup --prefix=$dist_path \
 	--cross-file=$config_dir/cross_meson.txt \
-     --buildtype=release \
-     --default-library=static \
-     -Dharfbuzz=disabled \
-     -Dbrotli=disabled \
-     --wrap-mode=nofallback \
-     $sources_path/bzip2
-ninja
-meson install
+	--buildtype=release \
+	--default-library=static \
+	-Dharfbuzz=disabled \
+	-Dbrotli=disabled \
+	--wrap-mode=nofallback \
+	$sources_path/libfreetype2
+#ninja && meson install 
 popd
