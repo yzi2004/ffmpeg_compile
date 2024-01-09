@@ -27,7 +27,7 @@ pushd zlib
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
- 	-DBUILD_SHARED_LIBS=false \
+ 	-DZLIB_SHARED=OFF \
 	$sources_path/zlib
 ninja && cmake --install . 
 popd
