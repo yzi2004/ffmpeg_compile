@@ -24,7 +24,7 @@ check_include_file(stddef.h    HAVE_STDDEF_H)
 option(ZLIB_SHARED "Build zlib as a shared lib" OFF)
 option(ZLIB_STATIC "Build zlib as a static lib" ON)
 option(ZLIB_DOCS "Build zlib documents" OFF)
-option(ZLIB_CLI "Build zlib executable" OFF)
+option(ZLIB_CLI_TESTS "Build zlib executable" OFF)
 
 #
 # Check to see if we have large file support
