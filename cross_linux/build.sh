@@ -15,24 +15,6 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
-cmake_compile(){
-	if [ -d "${build_path}/$1" ]; then
-	    rm -rf "$build_path/$1"
-	fi
-	
-	mkdir -p $1
-	pushd $1
-	
-	cmake -G "Ninja" \
-	        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-	        -DCMAKE_INSTALL_PREFIX=$dist_path \
-	        $2 \
-	        $sources_path/$1
-	
-	ninja && cmake --install .
-	popd
-}
-
 if [ -d "${build_path}" ]; then
     rm -rf "${build_path}"
 fi
@@ -122,6 +104,25 @@ popd
 
 #■■■■■■■compile fdk-aac
 cmake_compile "fdk-aac" "-DBUILD_SHARED_LIBS=OFF"
+
+cmake_compile(){
+	if [ -d "${build_path}/$1" ]; then
+	    rm -rf "$build_path/$1"
+	fi
+	
+	mkdir -p $1
+	pushd $1
+	
+	cmake -G "Ninja" \
+	        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+	        -DCMAKE_INSTALL_PREFIX=$dist_path \
+	        $2 \
+	        $sources_path/$1
+	
+	ninja && cmake --install .
+	popd
+}
+
 
 
 
