@@ -15,13 +15,36 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
-mkdir -p bzip2
-pushd bzip2
+cd $build_path
+
+if [ -d "${build_path}/bzip2" ]; then
+    rm -rf "${build_path}/bzip2"
+fi
+
+if [ -d "${build_path}/zlib" ]; then
+    rm -rf "${build_path}/zlib"
+fi
+
+#mkdir -p zlib
+#pushd zlib
+
+#cmake -G "Ninja" \
+#	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+#	-DCMAKE_INSTALL_PREFIX=$dist_path \
+# 	-DZLIB_SHARED=OFF \
+#	$sources_path/zlib
+#ninja && cmake --install .
+
+mkdir -p libng
+pushd libpng
 
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
- 	-DZLIB_SHARED=OFF \
-	$sources_path/bzip2
+	-DPNG_SHARED=OFF \
+	-DPNG_EXECUTABLES=OFF \
+	-DPNG_TESTS=OFF \
+	$sources_path/libpng
+
 ninja && cmake --install . 
 popd

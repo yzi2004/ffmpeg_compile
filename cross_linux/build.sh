@@ -150,6 +150,20 @@ cmake -G "Ninja" \
 ninja && cmake --install .
 popd
 
+mkdir -p libng
+pushd libpng
+
+cmake -G "Ninja" \
+        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+        -DCMAKE_INSTALL_PREFIX=$dist_path \
+        -DPNG_SHARED=OFF \
+        -DPNG_EXECUTABLES=OFF \
+        -DPNG_TESTS=OFF \
+        $sources_path/libpng
+
+ninja && cmake --install .
+popd
+
 #■■■■■■■compile freetype
 mkdir -p freetype 
 pushd freetype
