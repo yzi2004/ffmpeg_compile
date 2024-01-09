@@ -1,0 +1,13 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: bzip2
+Description: bzip2 data compression library
+Version: @VERSION@
+
+Requires:
+Libs: -L${libdir} -lfdk-aac @LIBS_PUBLIC@
+Libs.private: @LIBS_PRIVATE@
+Cflags: -I${includedir}

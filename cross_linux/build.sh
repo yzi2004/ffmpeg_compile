@@ -142,15 +142,13 @@ ninja && cmake --install .
 #■■■■■■■compile bzip2
 mkdir -p bzip2 && pushd bzip2
 
-meson setup --prefix=$dist_path \
-	--cross-file=$config_dir/cross_meson.txt \
-	--buildtype=release \
-	--default-library=static \
-	-Ddisable-cli=true \
-	$sources_path/bzip2
-ninja && meson install
+cmake -G "Ninja" \
+        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+        -DCMAKE_INSTALL_PREFIX=$dist_path \
+        -DENABLE_SHARED_LIB=OFF \
+        $sources_path/bzip2
+ninja && cmake --install .
 popd
-
 
 #■■■■■■■compile freetype
 mkdir -p freetype 
