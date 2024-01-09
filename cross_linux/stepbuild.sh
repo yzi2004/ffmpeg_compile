@@ -17,20 +17,16 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 cd $build_path
 
-if [ -d "${build_path}/freetype" ]; then
-    rm -rf "${build_path}/freetype"
+if [ -d "${build_path}/zlib" ]; then
+    rm -rf "${build_path}/zlib"
 fi
 
-mkdir -p freetype 
-pushd freetype
+mkdir -p zlib
+pushd zlib
 
-meson setup --prefix=$dist_path \
-	--cross-file=$config_dir/cross_meson.txt \
-	--buildtype=release \
-	--default-library=static \
-	-Dharfbuzz=disabled \
-	-Dbrotli=disabled \
-	--wrap-mode=nofallback \
-	$sources_path/libfreetype2
-#ninja && meson install 
+cmake -G "Ninja" \
+	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+	-DCMAKE_INSTALL_PREFIX=$dist_path \
+	$sources_path/zlib
+ninja && cmake --install . 
 popd
