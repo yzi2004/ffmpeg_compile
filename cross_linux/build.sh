@@ -31,14 +31,14 @@ cd $build_path
 #■■■■■■■compile x264
 mkdir -p x264
 pushd x264
-    $sources_path/x264/configure \
-          --host=$host \
-          --enable-static \
-          --disable-cli \
-          --cross-prefix=$host- \
-          --prefix=$dist_path
-    make -j $threads
-    make install
+$sources_path/x264/configure \
+      --host=$host \
+      --enable-static \
+      --disable-cli \
+      --cross-prefix=$host- \
+      --prefix=$dist_path
+#make -j $threads
+#make install
 popd
 
 #■■■■■■■compile x265
