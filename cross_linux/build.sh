@@ -129,6 +129,15 @@ cmake -G "Ninja" \
 ninja && cmake --install . 
 popd
 
+#■■■■■■■compile zlib
+mkdir -p zlib && pushd zlib
+
+cmake -G "Ninja" \
+	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+	-DCMAKE_INSTALL_PREFIX=$dist_path \
+ 	-DZLIB_SHARED=OFF \
+	$sources_path/zlib
+ninja && cmake --install . 
 
 #■■■■■■■compile bzip2
 mkdir -p bzip2 && pushd bzip2
