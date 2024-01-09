@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cmake_compile(){
+function cmake_compile(){
 	if [ -d "${build_path}/$1" ]; then
 	    rm -rf "$build_path/$1"
 	fi

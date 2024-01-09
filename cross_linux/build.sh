@@ -106,29 +106,44 @@ popd
 
 #■■■■■■■compile fdk-aac
 options="-DBUILD_SHARED_LIBS=OFF"
-cmake_compile "fdk-aac" $options
+cmake_compile "fdk-aac" "${options}"
 
-#options="-DENABLE_NASM=ON -DAOM_TARGET_CPU=x86_64 -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DENABLE_TESTDATA=OFF -DENABLE_TESTS=OFF -DENABLE_TOOLS=OFF "
-#cmake_compile "libaom" $options
+options="-DENABLE_NASM=ON \
+       	-DAOM_TARGET_CPU=x86_64 \
+       	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
+       	-DENABLE_DOCS=OFF \
+       	-DENABLE_EXAMPLES=OFF \
+       	-DENABLE_TESTDATA=OFF \
+       	-DENABLE_TESTS=OFF \
+       	-DENABLE_TOOLS=OFF"
+cmake_compile "libaom" "${options}"
 
-#■■■■■■■compile libaom
-mkdir -p libaom
-pushd libaom
+options="-DZLIB_SHARED=OFF" 
+cmake_compile "zlib" "${options}"
 
-cmake -G "Ninja" \
-	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-	-DCMAKE_INSTALL_PREFIX=$dist_path \
-	-DENABLE_NASM=ON \
- 	-DAOM_TARGET_CPU=x86_64 \
-	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
-	-DENABLE_DOCS=OFF \
-	-DENABLE_EXAMPLES=OFF  \
-	-DENABLE_TESTDATA=OFF \
-	-DENABLE_TESTS=OFF \
-	-DENABLE_TOOLS=OFF \
-	$sources_path/libaom
-ninja && cmake --install . 
-popd
+options="-DENABLE_SHARED_LIB=OFF"
+cmake_compile "bzip2" "${options}"
 
+options="-DPNG_SHARED=OFF \
+        -DPNG_EXECUTABLES=OFF \
+        -DPNG_TESTS=OFF"
+cmake_compile "libpng" "${options}"
 
+options="-DFT_REQUIRE_ZLIB=TRUE \
+        -DFT_REQUIRE_PNG=TRUE \
+        -DFT_DISABLE_HARFBUZZ=FALSE \
+        -DFT_DISABLE_BROTLI=FALSE"
+cmake_compile "libfreetype2" "${options}"
 
+options="-DHB_HAVE_FREETYPE=TRUE \
+        -DHB_HAVE_GLIB=FALSE \
+        -DHB_HAVE_INTROSPECTION=FALSE"
+
+cmake_compile "harfbuzz" "${options}"
+
+options="-DFT_REQUIRE_ZLIB=TRUE \
+        -DFT_REQUIRE_PNG=TRUE \
+        -DFT_DISABLE_HARFBUZZ=FALSE \
+        -DFT_DISABLE_BROTLI=FALSE"
+
+cmake_compile "harfbuzz" "${options}"
