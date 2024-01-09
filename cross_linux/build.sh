@@ -107,6 +107,16 @@ popd
 #■■■■■■■compile fdk-aac
 cmake_compile "fdk-aac" "-DBUILD_SHARED_LIBS=OFF"
 
+pars = "-DENABLE_NASM=ON \
+ 	-DAOM_TARGET_CPU=x86_64 \
+	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
+	-DENABLE_DOCS=OFF \
+	-DENABLE_EXAMPLES=OFF  \
+	-DENABLE_TESTDATA=OFF \
+	-DENABLE_TESTS=OFF \
+	-DENABLE_TOOLS=OFF \"
+ 
+cmake_compile "libaom" $pars
 
 
 
