@@ -105,10 +105,10 @@ popd
 #popd
 
 #■■■■■■■compile fdk-aac
-options = "-DBUILD_SHARED_LIBS=OFF"
+options="-DBUILD_SHARED_LIBS=OFF"
 cmake_compile "fdk-aac" $options
 
-pars = "-DENABLE_NASM=ON \
+pars="-DENABLE_NASM=ON \
  	-DAOM_TARGET_CPU=x86_64 \
 	-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 	-DENABLE_DOCS=OFF \
@@ -117,7 +117,7 @@ pars = "-DENABLE_NASM=ON \
 	-DENABLE_TESTS=OFF \
 	-DENABLE_TOOLS=OFF \"
  
-cmake_compile "libaom" "${pars}"
+cmake_compile "libaom" $pars
 
 
 
