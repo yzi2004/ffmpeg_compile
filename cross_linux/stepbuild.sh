@@ -17,34 +17,19 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 cd $build_path
 
-if [ -d "${build_path}/bzip2" ]; then
-    rm -rf "${build_path}/bzip2"
+if [ -d "${build_path}/freetype" ]; then
+    rm -rf "${build_path}/freetype"
 fi
 
-if [ -d "${build_path}/zlib" ]; then
-    rm -rf "${build_path}/zlib"
-fi
-
-#mkdir -p zlib
-#pushd zlib
-
-#cmake -G "Ninja" \
-#	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-#	-DCMAKE_INSTALL_PREFIX=$dist_path \
-# 	-DZLIB_SHARED=OFF \
-#	$sources_path/zlib
-#ninja && cmake --install .
-
-mkdir -p libng
-pushd libpng
+mkdir -p freetype 
+pushd freetype
 
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
-	-DPNG_SHARED=OFF \
-	-DPNG_EXECUTABLES=OFF \
-	-DPNG_TESTS=OFF \
-	$sources_path/libpng
+	-Dharfbuzz=OFF \
+	-Dbrotli=OFF \
+	$sources_path/libfreetype2
 
 ninja && cmake --install . 
 popd
