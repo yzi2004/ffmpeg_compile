@@ -44,6 +44,11 @@ zlib_git="https://github.com/madler/zlib.git"
 zlib_ver="v1.3"
 git clone --depth 1 $zlib_git -b $zlib_ver zlib
 
+pushd zlib
+mv CMakeLists.txt CMakeLists.txt.orig
+cp $patch_dir/zlib-1.3/CMakeLists.txt .
+popd
+
 echo -e "\e[1;44m ----bzip2----  \e[0m"
 bzip2_git="https://sourceware.org/git/bzip2.git"
 bzip2_ver="bzip2-1.0.8"
@@ -51,8 +56,9 @@ git clone --depth 1 $bzip2_git -b $bzip2_ver bzip2
 
 pushd bzip2
 patch -p0 < $patch_dir/bzip2-1.0.8/bzip2-1.0.8.diff
-cp $patch_dir/bzip2-1.0.8/meson.build .
-cp $patch_dir/bzip2-1.0.8/meson_options.txt .
+cp $patch_dir/bzip2-1.0.8/CMakeLists.txt .
+cp $patch_dir/bzip2-1.0.8/CMakeOptions.txt .
+cp $patch_dir/bzip2-1.0.8/bzip2.pc.in .
 popd
 
 echo -e "\e[1;44m ----libpng----  \e[0m"
