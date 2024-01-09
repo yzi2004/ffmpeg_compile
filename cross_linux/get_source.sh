@@ -18,10 +18,10 @@ X264_git="https://code.videolan.org/videolan/x264.git"
 X264_ver="stable"
 git clone --depth 1 $X264_git -b $X264_ver x264
 
-echo -e "\e[1;44m ----x265-----  \e[0m"
-X265_git="https://bitbucket.org/multicoreware/x265_git.git"
-X265_ver="3.5"
-git clone $X265_git -b $X265_ver x265
+#echo -e "\e[1;44m ----x265-----  \e[0m"
+#X265_git="https://bitbucket.org/multicoreware/x265_git.git"
+#X265_ver="3.5"
+#git clone $X265_git -b $X265_ver x265
 
 echo -e "\e[1;44m ---fdk-aac---  \e[0m"
 fdk_git="https://github.com/mstorsjo/fdk-aac.git"
