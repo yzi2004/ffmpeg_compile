@@ -15,7 +15,7 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
-function cmake_compile(){
+cmake_compile(){
 	if [ -d "${build_path}/$1" ]; then
 	    rm -rf "$build_path/$1"
 	fi
