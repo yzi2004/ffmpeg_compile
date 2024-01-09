@@ -15,19 +15,13 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
-cd $build_path
-
-if [ -d "${build_path}/zlib" ]; then
-    rm -rf "${build_path}/zlib"
-fi
-
-mkdir -p zlib
-pushd zlib
+mkdir -p bzip2
+pushd bzip2
 
 cmake -G "Ninja" \
 	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
  	-DZLIB_SHARED=OFF \
-	$sources_path/zlib
+	$sources_path/bzip2
 ninja && cmake --install . 
 popd
