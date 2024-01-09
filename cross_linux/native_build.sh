@@ -22,5 +22,6 @@ cmake -G "Ninja" \
 	-DCMAKE_INSTALL_PREFIX=$dist_path \
  	-DBZIP2_SHARED=OFF \
 	$sources_path/bzip2
-ninja && cmake --install . 
+ninja 
+#cmake --install . 
 popd
