@@ -105,7 +105,8 @@ popd
 #popd
 
 #■■■■■■■compile fdk-aac
-cmake_compile "fdk-aac" "-DBUILD_SHARED_LIBS=OFF"
+options = "-DBUILD_SHARED_LIBS=OFF"
+cmake_compile "fdk-aac" $options
 
 pars = "-DENABLE_NASM=ON \
  	-DAOM_TARGET_CPU=x86_64 \
