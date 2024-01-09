@@ -171,20 +171,50 @@ cmake -G "Ninja" \
 ninja && cmake --install .
 popd
 
-#■■■■■■■compile freetype
-#mkdir -p freetype 
-#pushd freetype
+■■■■■■■compile freetype
+mkdir -p freetype 
+pushd freetype
 
-#meson setup --prefix=$dist_path \
-#	--cross-file=$config_dir/cross_meson.txt \
-#     --buildtype=release \
-#     --default-library=static \
-#     -Dharfbuzz=disabled \
-#     -Dbrotli=disabled \
-#     --wrap-mode=nofallback \
-#     $sources_path/libfreetype2
-##ninja && meson install 
-#popd
+cmake -G "Ninja" \
+        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+        -DCMAKE_INSTALL_PREFIX=$dist_path \
+        -DFT_REQUIRE_ZLIB=TRUE \
+        -DFT_REQUIRE_PNG=TRUE \
+        -DFT_DISABLE_HARFBUZZ=FALSE \
+        -DFT_DISABLE_BROTLI=FALSE \
+        $sources_path/libfreetype2
+
+ninja && cmake --install .
+popd
+
+mkdir -p ${prj}
+pushd ${prj}
+
+cmake -G "Ninja" \
+        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+        -DCMAKE_INSTALL_PREFIX=$dist_path \
+        -DHB_HAVE_FREETYPE=TRUE \
+        -DHB_HAVE_GLIB=FALSE \
+        -DHB_HAVE_INTROSPECTION=FALSE \
+        $sources_path/${prj}
+
+ninja && cmake --install .
+popd
+
+mkdir -p ${prj}
+pushd ${prj}
+
+cmake -G "Ninja" \
+        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+        -DCMAKE_INSTALL_PREFIX=$dist_path \
+        -DFT_REQUIRE_ZLIB=TRUE \
+        -DFT_REQUIRE_PNG=TRUE \
+        -DFT_DISABLE_HARFBUZZ=FALSE \
+        -DFT_DISABLE_BROTLI=FALSE \
+        $sources_path/libfreetype2
+
+ninja && cmake --install .
+popd
 
 
 #■■■■■■■compile ffmpeg

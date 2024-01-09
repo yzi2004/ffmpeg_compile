@@ -15,21 +15,27 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
+prj="freetype"
+
+
 cd $build_path
 
-if [ -d "${build_path}/freetype" ]; then
-    rm -rf "${build_path}/freetype"
+if [ -d "${build_path}/${prj}" ]; then
+    rm -rf "${build_path}/${prj}"
 fi
 
-mkdir -p freetype 
-pushd freetype
+mkdir -p ${prj} 
+pushd ${prj}
 
 cmake -G "Ninja" \
-	-DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-	-DCMAKE_INSTALL_PREFIX=$dist_path \
-	-Dharfbuzz=OFF \
-	-Dbrotli=OFF \
-	$sources_path/libfreetype2
+        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
+        -DCMAKE_INSTALL_PREFIX=$dist_path \
+        -DFT_REQUIRE_ZLIB=TRUE \
+        -DFT_REQUIRE_PNG=TRUE \
+        -DFT_DISABLE_HARFBUZZ=FALSE \
+        -DFT_DISABLE_BROTLI=FALSE \
+        $sources_path/libfreetype2
 
-ninja && cmake --install . 
+ninja && cmake --install .
 popd
+
