@@ -5,8 +5,8 @@ ld = 'x86_64-w64-mingw32-ld'
 ar = 'x86_64-w64-mingw32-ar'
 windres = 'x86_64-w64-mingw32-windres'
 strip = 'x86_64-w64-mingw32-strip'
-pkg-config = 'x86_64-w64-mingw32-pkg-config'
-cmake = 'x86_64-w64-mingw32-cmake'
+pkgconfig = 'pkg-config'
+cmake = 'cmake'
 #exe_wrapper = 'wine64'
 
 [properties]
@@ -20,7 +20,7 @@ cmake = 'x86_64-w64-mingw32-cmake'
 
 has_function_printf = true
 
-sys_root = '/opt/llvm-mingw-ucrt-x86_64'
+#pkg_config_libdir = '/home/yzi/work/ff_dist/lib/pkgconfig'
 
 [host_machine]
 system = 'windows'

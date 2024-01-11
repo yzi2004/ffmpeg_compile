@@ -8,6 +8,6 @@ Description: bzip2 data compression library
 Version: @VERSION@
 
 Requires:
-Libs: -L${libdir} -lfdk-aac @LIBS_PUBLIC@
+Libs: -L${libdir} -lbz2 @LIBS_PUBLIC@
 Libs.private: @LIBS_PRIVATE@
 Cflags: -I${includedir}

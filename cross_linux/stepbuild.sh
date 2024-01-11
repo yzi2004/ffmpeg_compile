@@ -15,30 +15,20 @@ threads="8"
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
+. compiler.sh
+
 prj="freetype"
 
 
 cd $build_path
 
-if [ -d "${build_path}/${prj}" ]; then
-    rm -rf "${build_path}/${prj}"
-fi
+#options="-DFT_REQUIRE_ZLIB=TRUE \
+#        -DFT_REQUIRE_PNG=TRUE \
+#        -DFT_DISABLE_HARFBUZZ=FALSE \
+#        -DFT_DISABLE_BROTLI=FALSE"
+#cmake_compile "libfreetype2" "${options}"
+options="-Dharfbuzz=disabled \
+        -Dbrotli=disabled \
+        --wrap-mode=nofallback"
 
-mkdir -p ${prj} 
-pushd ${prj}
-
-mkdir -p freetype
-pushd freetype
-
-meson setup --prefix=$dist_path \
-     --cross-file=$config_dir/cross_for_windows_meson.txt \
-	--buildtype=release \
-     --default-library=static \
-     -Dharfbuzz=disabled \
-     -Dbrotli=disabled \
-     --wrap-mode=nofallback \
-     $sources_path/libfreetype2
-
-#ninja && cmake --install .
-popd
-
+meson_compile "libfreetype2" "${options}"

@@ -15,8 +15,4 @@ option(ENABLE_EXAMPLES   "Build examples"
 
 option(ENABLE_LIB_ONLY   "Build libbz2 only.  This is a short hand for -DENABLE_APP=0 -DENABLE_EXAMPLES=0" ON)
 
-option(ENABLE_STATIC_LIB "Build libbz2 in static mode also" ON)
-
-option(ENABLE_SHARED_LIB "Build libbz2 as a shared library" OFF)
-
 option(USE_OLD_SONAME "Use libbz2.so.1.0 for compatibility with old Makefiles" OFF)

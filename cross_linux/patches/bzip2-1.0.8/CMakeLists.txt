@@ -72,7 +72,7 @@ if(NOT HAVE_DECL_INITGROUPS AND HAVE_UNISTD_H)
     endif()
 endif()
 
-# bzip2.pc (pkg-config file)
+# bz2.pc (pkg-config file)
 set(prefix      ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix ${CMAKE_INSTALL_PREFIX})
 set(bindir      ${INSTALL_BIN_DIR})
@@ -81,10 +81,10 @@ set(includedir  ${INSTALL_INC_DIR})
 set(VERSION     ${VERSION})
 
 configure_file(
-    bzip2.pc.in
-    ${CMAKE_CURRENT_BINARY_DIR}/bzip2.pc
+    bz2.pc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/bz2.pc
     @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bzip2.pc
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bz2.pc
     DESTINATION ${INSTALL_PKGCONFIG_DIR})
 
 #
@@ -108,27 +108,13 @@ target_sources(bz2_ObjLib
     PUBLIC    ${CMAKE_CURRENT_SOURCE_DIR}/bzlib_private.h
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/bzlib.h)
 
-if(ENABLE_SHARED_LIB)
-    target_sources(bz2
-        PRIVATE   ${BZ2_SOURCES}
-                  ${CMAKE_CURRENT_SOURCE_DIR}/libbz2.def
-        PUBLIC    ${CMAKE_CURRENT_SOURCE_DIR}/bzlib_private.h
-        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/bzlib.h)
-    # Always use '-fPIC'/'-fPIE' option for shared libraries.
-    set_property(TARGET bz2 PROPERTY POSITION_INDEPENDENT_CODE ON)
-    install(TARGETS bz2 DESTINATION ${INSTALL_LIB_DIR})
-    install(FILES bzlib.h DESTINATION ${INSTALL_INC_DIR})
-endif()
-
-if(ENABLE_STATIC_LIB)
-    # The libbz2 static library.
-    add_library(bz2_static STATIC)
-    target_sources(bz2_static
+add_library(bz2 STATIC)
+target_sources(bz2
         PRIVATE     ${BZ2_SOURCES}
         PUBLIC      ${CMAKE_CURRENT_SOURCE_DIR}/bzlib_private.h
         INTERFACE   ${CMAKE_CURRENT_SOURCE_DIR}/bzlib.h)
-    target_compile_definitions(bz2_static PUBLIC BZ2_STATICLIB)
-    install(TARGETS bz2_static DESTINATION ${INSTALL_LIB_DIR})
+    target_compile_definitions(bz2 PUBLIC BZ2_STATICLIB)
+    install(TARGETS bz2 DESTINATION ${INSTALL_LIB_DIR})
     install(FILES bzlib.h DESTINATION ${INSTALL_INC_DIR})
 endif()
 
@@ -158,17 +144,6 @@ if(ENABLE_APP)
         target_compile_definitions(bzip2recover PUBLIC BZ_LCCWIN32=0 BZ_UNIX)
     endif()
     install(TARGETS bzip2recover DESTINATION ${INSTALL_BIN_DIR})
-
-    if(ENABLE_EXAMPLES)
-        if(ENABLE_SHARED_LIB)
-            # The dlltest executable.
-            add_executable(dlltest)
-            target_sources(dlltest
-                PRIVATE   dlltest.c)
-            target_link_libraries(dlltest bz2)
-            install(TARGETS dlltest DESTINATION ${INSTALL_BIN_DIR})
-        endif()
-    endif()
 
     if(NOT WIN32)
         # Install shell scripts, and renamed copies.
