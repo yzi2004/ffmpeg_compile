@@ -27,15 +27,18 @@ fi
 mkdir -p ${prj} 
 pushd ${prj}
 
-cmake -G "Ninja" \
-        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-        -DCMAKE_INSTALL_PREFIX=$dist_path \
-        -DFT_REQUIRE_ZLIB=TRUE \
-        -DFT_REQUIRE_PNG=TRUE \
-        -DFT_DISABLE_HARFBUZZ=FALSE \
-        -DFT_DISABLE_BROTLI=FALSE \
-        $sources_path/libfreetype2
+mkdir -p freetype
+pushd freetype
 
-ninja && cmake --install .
+meson setup --prefix=$dist_path \
+     --cross-file=$config_dir/cross_for_windows_meson.txt \
+	--buildtype=release \
+     --default-library=static \
+     -Dharfbuzz=disabled \
+     -Dbrotli=disabled \
+     --wrap-mode=nofallback \
+     $sources_path/libfreetype2
+
+#ninja && cmake --install .
 popd
 

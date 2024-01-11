@@ -146,4 +146,4 @@ options="-DFT_REQUIRE_ZLIB=TRUE \
         -DFT_DISABLE_HARFBUZZ=FALSE \
         -DFT_DISABLE_BROTLI=FALSE"
 
-cmake_compile "harfbuzz" "${options}"
+cmake_compile "libfreetype2" "${options}"
