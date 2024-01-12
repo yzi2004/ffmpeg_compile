@@ -1,8 +1,7 @@
 #!/bin/bash
 
 function cmake_compile(){
-
-	echo -e "\e[1;44m $$$$$$$$$$$$$$$$$$$$$$$$ $1 $$$$$$$$$$$$$$$$$$$$$$$$  \e[0m"
+	echo -e "\e[1;44m .......................... $1 .......................  \e[0m"
 
 	if [ -d "${build_path}/$1" ]; then
 	    rm -rf "$build_path/$1"
@@ -10,12 +9,19 @@ function cmake_compile(){
 	
 	mkdir -p $1
 	pushd $1
-	
+
+	src_path=$3
+        if [ -z "$src_path" ]
+        then
+	       src_path=$1
+        fi
+
 	cmake -G "Ninja" \
 	        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
 	        -DCMAKE_INSTALL_PREFIX=$dist_path \
+		-DCMAKE_BUILD_TYPE=Release \
 	        $2 \
-	        $sources_path/$1
+	        $sources_path/$src_path
 	
 	ninja && cmake --install .
 	popd
@@ -34,10 +40,16 @@ function cmake_compile_only(){
 
 function meson_compile(){
 
-	echo -e "\e[1;44m $$$$$$$$$$$$$$$$$$$$$$$$ $1 $$$$$$$$$$$$$$$$$$$$$$$$  \e[0m"
+	echo -e "\e[1;44m .......................... $1 .......................  \e[0m"
 
         if [ -d "${build_path}/$1" ]; then
             rm -rf "$build_path/$1"
+        fi
+
+	src_path=$3
+        if [ -z "$src_path" ]
+        then
+               src_path=$1
         fi
 
         mkdir -p $1
@@ -48,7 +60,8 @@ function meson_compile(){
 	        --buildtype=release \
 		--default-library=static \
 		$2 \
-		$sources_path/$1
+		$sources_path/$src_path
 
 	ninja && meson install
+	popd
 }

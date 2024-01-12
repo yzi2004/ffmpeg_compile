@@ -90,6 +90,11 @@ fribidi_git="https://github.com/fribidi/fribidi.git"
 fribidi_ver="v1.0.13" 
 git clone --depth 1 $fribidi_git -b $fribidi_ver fribidi
 
+echo -e "\e[1;44m --libexpat-  \e[0m"
+libexpat_git="https://github.com/libexpat/libexpat.git"
+libexpat_ver="R_2_5_0"
+git clone --depth 1 $libexpat_git -b $libexpat_ver libexpat
+
 echo -e "\e[1;44m --fontconfig-  \e[0m"
 fontconfig_git="https://gitlab.freedesktop.org/fontconfig/fontconfig.git"
 fontconfig_ver="2.15.0"
