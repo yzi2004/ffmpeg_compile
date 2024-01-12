@@ -1,0 +1,11 @@
+--- meson.build.orig	2024-01-12 11:17:42.913311863 +0900
++++ meson.build	2024-01-12 11:18:41.163301260 +0900
+@@ -316,7 +316,7 @@
+ endif
+ 
+ # BZip2 support
+-bzip2_dep = cc.find_library('bz2',
++bzip2_dep = dependency('bz2',
+   required: get_option('bzip2'))
+ 
+ if bzip2_dep.found()

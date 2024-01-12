@@ -76,6 +76,10 @@ libfreetype2_git="https://gitlab.freedesktop.org/freetype/freetype.git"
 libfreetype2_ver="VER-2-13-2"
 git clone --depth 1 $libfreetype2_git -b $libfreetype2_ver libfreetype2
 
+pushd libfreetype2
+patch -p0 < $patch_dir/freetype2-2-13-2/freetype2-2-13-2.diff
+popd
+
 echo -e "\e[1;44m --harfbuzz-  \e[0m"
 harfbuzz_git="https://github.com/harfbuzz/harfbuzz.git"
 harfbuzz_ver="8.3.0"
