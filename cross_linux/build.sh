@@ -14,7 +14,6 @@ config_dir="$(pwd)/config"
 threads="8" 
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
-#export PKG_CONFIG_LIBDIR="$dist_path/lib/pkgconfig"
 
 . compiler.sh
 
@@ -130,26 +129,37 @@ options="-DPNG_SHARED=OFF \
         -DPNG_TESTS=OFF"
 cmake_compile "libpng" "${options}"
 
-#options="-DFT_REQUIRE_ZLIB=TRUE \
-#        -DFT_REQUIRE_PNG=TRUE \
-#        -DFT_DISABLE_HARFBUZZ=FALSE \
-#        -DFT_DISABLE_BROTLI=FALSE"
-#cmake_compile "libfreetype2" "${options}"
 options="-Dharfbuzz=disabled \
 	-Dbrotli=disabled \
+	-Dbzip2=enabled \
+	-Dpng=enabled \
+	-Dtests=disabled \
+	-Dzlib=enabled \
 	--wrap-mode=nofallback"
 
 meson_compile "libfreetype2" "${options}"
 
-options="-DHB_HAVE_FREETYPE=TRUE \
-        -DHB_HAVE_GLIB=FALSE \
-        -DHB_HAVE_INTROSPECTION=FALSE"
+options="-Dfreetype=enabled \
+        -Dgdi=disabled \
+        -Dtests=disabled \
+        -Ddocs=disabled \
+        --wrap-mode=nofallback"
 
-cmake_compile "harfbuzz" "${options}"
+meson_compile "harfbuzz" "${options}"
 
-options="-DFT_REQUIRE_ZLIB=TRUE \
-        -DFT_REQUIRE_PNG=TRUE \
-        -DFT_DISABLE_HARFBUZZ=FALSE \
-        -DFT_DISABLE_BROTLI=FALSE"
+options="-Dharfbuzz=enabled \
+        -Dbrotli=disabled \
+        -Dbzip2=enabled \
+        -Dpng=enabled \
+        -Dtests=disabled \
+        -Dzlib=enabled \
+        --wrap-mode=nofallback"
 
-cmake_compile "libfreetype2" "${options}"
+meson_compile "libfreetype2" "${options}"
+
+options="-Ddocs=false \
+        -Dbin=false \
+        -Dtests=false \
+        --wrap-mode=nofallback"
+
+meson_compile "fribidi" "${options}"

@@ -17,18 +17,16 @@ export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
 
 . compiler.sh
 
-prj="freetype"
+#set BROTLI_BUILD_TOOLS=FALSE
+#set BROTLI_DISABLE_TESTS=TRUE
 
+options=" -Ddoc=disabled \
+     -Dtests=disabled \
+     -Dtools=disabled \
+     --wrap-mode=nofallback"
 
-cd $build_path
+meson_compile "fontconfig" "${options}"
 
-#options="-DFT_REQUIRE_ZLIB=TRUE \
-#        -DFT_REQUIRE_PNG=TRUE \
-#        -DFT_DISABLE_HARFBUZZ=FALSE \
-#        -DFT_DISABLE_BROTLI=FALSE"
-#cmake_compile "libfreetype2" "${options}"
-options="-Dharfbuzz=disabled \
-        -Dbrotli=disabled \
-        --wrap-mode=nofallback"
+#set BROTLI_BUILD_TOOLS=
+#set BROTLI_DISABLE_TESTS=
 
-meson_compile "libfreetype2" "${options}"

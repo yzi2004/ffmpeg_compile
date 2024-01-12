@@ -62,6 +62,7 @@ check_function_exists(accept4   HAVE_ACCEPT4)
 check_function_exists(mkostemp  HAVE_MKOSTEMP)
 
 include(CheckSymbolExists)
+
 # XXX does this correctly detect initgroups (un)availability on cygwin?
 check_symbol_exists(initgroups grp.h HAVE_DECL_INITGROUPS)
 if(NOT HAVE_DECL_INITGROUPS AND HAVE_UNISTD_H)
