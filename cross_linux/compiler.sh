@@ -46,4 +46,5 @@ function meson_compile(){
 		$sources_path/$1
 
 	ninja && meson install
+	popd
 }

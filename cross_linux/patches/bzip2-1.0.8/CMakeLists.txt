@@ -113,10 +113,9 @@ target_sources(bz2
         PRIVATE     ${BZ2_SOURCES}
         PUBLIC      ${CMAKE_CURRENT_SOURCE_DIR}/bzlib_private.h
         INTERFACE   ${CMAKE_CURRENT_SOURCE_DIR}/bzlib.h)
-    target_compile_definitions(bz2 PUBLIC BZ2_STATICLIB)
-    install(TARGETS bz2 DESTINATION ${INSTALL_LIB_DIR})
-    install(FILES bzlib.h DESTINATION ${INSTALL_INC_DIR})
-endif()
+target_compile_definitions(bz2 PUBLIC BZ2_STATICLIB)
+install(TARGETS bz2 DESTINATION ${INSTALL_LIB_DIR})
+install(FILES bzlib.h DESTINATION ${INSTALL_INC_DIR})
 
 if(ENABLE_APP)
     # The bzip2 executable.

@@ -58,7 +58,7 @@ pushd bzip2
 patch -p0 < $patch_dir/bzip2-1.0.8/bzip2-1.0.8.diff
 cp $patch_dir/bzip2-1.0.8/CMakeLists.txt .
 cp $patch_dir/bzip2-1.0.8/CMakeOptions.txt .
-cp $patch_dir/bzip2-1.0.8/bzip2.pc.in .
+cp $patch_dir/bzip2-1.0.8/bz2.pc.in .
 popd
 
 echo -e "\e[1;44m ----libpng----  \e[0m"
