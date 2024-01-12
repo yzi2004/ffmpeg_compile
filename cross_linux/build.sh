@@ -14,7 +14,6 @@ config_dir="$(pwd)/config"
 threads="8" 
 
 export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
-#export PKG_CONFIG_LIBDIR="$dist_path/lib/pkgconfig"
 
 . compiler.sh
 
@@ -130,13 +129,12 @@ options="-DPNG_SHARED=OFF \
         -DPNG_TESTS=OFF"
 cmake_compile "libpng" "${options}"
 
-#options="-DFT_REQUIRE_ZLIB=TRUE \
-#        -DFT_REQUIRE_PNG=TRUE \
-#        -DFT_DISABLE_HARFBUZZ=FALSE \
-#        -DFT_DISABLE_BROTLI=FALSE"
-#cmake_compile "libfreetype2" "${options}"
 options="-Dharfbuzz=disabled \
 	-Dbrotli=disabled \
+	-Dbzip2=true \
+	-Dpng=true \
+	-Dtests=disabled \
+	-Dzlib=enabled \
 	--wrap-mode=nofallback"
 
 meson_compile "libfreetype2" "${options}"

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 function cmake_compile(){
+
+	echo -e "\e[1;44m $$$$$$$$$$$$$$$$$$$$$$$$ $1 $$$$$$$$$$$$$$$$$$$$$$$$  \e[0m"
+
 	if [ -d "${build_path}/$1" ]; then
 	    rm -rf "$build_path/$1"
 	fi
@@ -30,6 +33,8 @@ function cmake_compile_only(){
 
 
 function meson_compile(){
+
+	echo -e "\e[1;44m $$$$$$$$$$$$$$$$$$$$$$$$ $1 $$$$$$$$$$$$$$$$$$$$$$$$  \e[0m"
 
         if [ -d "${build_path}/$1" ]; then
             rm -rf "$build_path/$1"
