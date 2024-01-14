@@ -1,6 +1,6 @@
 #!/bin/bash
 
-base_path="$(pwd)/../../work"
+base_path="/tmp"
 sources_path="$base_path/sources"
 
 patch_dir="$(pwd)/patches"
@@ -18,10 +18,10 @@ X264_git="https://code.videolan.org/videolan/x264.git"
 X264_ver="stable"
 git clone --depth 1 $X264_git -b $X264_ver x264
 
-#echo -e "\e[1;44m ----x265-----  \e[0m"
-#X265_git="https://bitbucket.org/multicoreware/x265_git.git"
-#X265_ver="3.5"
-#git clone $X265_git -b $X265_ver x265
+echo -e "\e[1;44m ----x265-----  \e[0m"
+X265_git="https://bitbucket.org/multicoreware/x265_git.git"
+X265_ver="3.5"
+git clone $X265_git -b $X265_ver x265
 
 echo -e "\e[1;44m ---fdk-aac---  \e[0m"
 fdk_git="https://github.com/mstorsjo/fdk-aac.git"
@@ -33,6 +33,11 @@ lame_download="https://versaweb.dl.sourceforge.net/project/lame/lame/3.100/lame-
 curl $lame_download -o lame.tar.gz
 tar xzf lame.tar.gz && mv lame-3.100 lame
 rm lame.tar.gz
+
+pushd lame
+cp $patch_dir/lame-3.100/CMakeLists.txt .
+cp $patch_dir/lame-3.100/lame.pc.in .
+popd
 
 echo -e "\e[1;44m -----aom----  \e[0m"
 libaom_git="https://aomedia.googlesource.com/aom"
@@ -101,8 +106,10 @@ fontconfig_ver="2.15.0"
 git clone --depth 1 $fontconfig_git -b $fontconfig_ver fontconfig
 
 echo -e "\e[1;44m -----ass----  \e[0m"
-libass_git="https://github.com/libass/libass.git"
-libass_ver="0.17.1" 
+#libass_git="https://github.com/libass/libass.git"
+#libass_ver="0.17.1" 
+libass_git="https://github.com/TypesettingTools/libass.git"
+libass_ver="meson-pr"
 git clone --depth 1 $libass_git -b $libass_ver libass
 
 echo -e "\e[1;44m ---ffmpeg----  \e[0m"
