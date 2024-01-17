@@ -6,14 +6,15 @@ build="x86_64-linux-gnu"
 base_path="/tmp"
 sources_path="$base_path/sources"
 build_path="$base_path/ff_build"
-dist_path="$base_path/ff_dist"
+libs_path="$base_path/ff_libs"
+dist_path="$(pwd)/../../ff_dist"
 
 patch_dir="$(pwd)/patches"
 config_dir="$(pwd)/config"
 
 threads="8" 
 
-export PKG_CONFIG_PATH="$dist_path/lib/pkgconfig"
+export PKG_CONFIG_PATH="$libs_path/lib/pkgconfig"
 
 . compiler.sh
 
@@ -25,7 +26,12 @@ if [ -d "${dist_path}" ]; then
     rm -rf "${dist_path}"
 fi
 
-mkdir -p $build_path $dist_path
+if [ -d "${libs_path}" ]; then
+    rm -rf "${libs_path}"
+fi
+
+
+mkdir -p $build_path $libs_path 
 cd $build_path
 
 #■■■■■■■compile x264
@@ -37,7 +43,7 @@ $sources_path/x264/configure \
       --disable-cli \
       --disable-win32thread \
       --cross-prefix=$host- \
-      --prefix=$dist_path
+      --prefix=$libs_path
 make -j $threads
 make install
 popd
@@ -126,13 +132,16 @@ options="-DEXPAT_BUILD_TOOLS=OFF \
 	-DEXPAT_BUILD_TESTS=OFF \
 	-DEXPAT_SHARED_LIBS=OFF \
 	-DEXPAT_BUILD_DOCS=OFF"
-
 cmake_compile "libexpat" "${options}" "libexpat/expat"
 
 options="-DPNG_SHARED=OFF \
         -DPNG_EXECUTABLES=OFF \
         -DPNG_TESTS=OFF"
 cmake_compile "libpng" "${options}"
+
+options="-DBUILD_SHARED_LIBS=OFF \
+        -DBUILD_PKGCONFIG_FILES=ON"
+cmake_compile "openjpeg" "${options}"
 
 options="-Dharfbuzz=disabled \
 	-Dbrotli=disabled \
@@ -141,7 +150,6 @@ options="-Dharfbuzz=disabled \
 	-Dtests=disabled \
 	-Dzlib=enabled \
 	--wrap-mode=nofallback"
-
 meson_compile "libfreetype2" "${options}"
 
 options="-Dfreetype=enabled \
@@ -149,7 +157,6 @@ options="-Dfreetype=enabled \
         -Dtests=disabled \
         -Ddocs=disabled \
         --wrap-mode=nofallback"
-
 meson_compile "harfbuzz" "${options}"
 
 options="-Dharfbuzz=enabled \
@@ -159,31 +166,43 @@ options="-Dharfbuzz=enabled \
         -Dtests=disabled \
         -Dzlib=enabled \
         --wrap-mode=nofallback"
-
 meson_compile "libfreetype2" "${options}"
 
 options="-Ddocs=false \
         -Dbin=false \
         -Dtests=false \
         --wrap-mode=nofallback"
-
 meson_compile "fribidi" "${options}"
 
 options=" -Ddoc=disabled \
      -Dtests=disabled \
      -Dtools=disabled \
      --wrap-mode=nofallback"
-
 meson_compile "fontconfig" "${options}"
 
 options="-Dtest=false"
-
 meson_compile "libass" "${options}"
+
+#$sources_path/libvpx/configure \
+#      --target=x86_64-win64-gcc \
+#      --prefix=$libs_path \
+#      --disable-docs \
+#      --disable-examples \
+#      --disable-tools \
+#      --enable-vp9-highbitdepth \
+#      --enable-better-hw-compatibility \
+#      --disable-install-docs \
+#      --disable-install-bins \
+#      --disable-unit-tests \
+#      --enable-vp8 \
+#      --enable-vp9 \
+#      --enable-small
+# make && make install
 
 mkdir -p ffmpeg
 pushd ffmpeg
 
-$sources_path/ffmpeg/configure --prefix=$dist_path \
+$sources_path/ffmpeg/configure --prefix=$libs_path \
         --arch=x86_64 \
         --target-os=mingw32 \
         --cross-prefix=$host- \
@@ -197,6 +216,7 @@ $sources_path/ffmpeg/configure --prefix=$dist_path \
         --enable-libass \
 	--enable-libmp3lame \
 	--enable-libfdk-aac \
+	--enable-libopenjpeg \
     	--enable-libaom \
     	--enable-libfreetype \
     	--enable-libfribidi \
@@ -208,10 +228,14 @@ $sources_path/ffmpeg/configure --prefix=$dist_path \
         --enable-nonfree \
         --disable-ffplay \
         --disable-ffprobe \
-        --extra-cflags="-static -O3 -I${dist_path}/include " \
+        --extra-cflags="-static -O3 -I${libs_path}/include " \
     	--extra-cxxflags="-static -O3 " \
-    	--extra-ldflags="-static -O3 -s -L${dist_path}/lib" 
+    	--extra-ldflags="-static -O3 -s -L${libs_path}/lib" 
 
 make 
 make install
 popd
+
+mkdir -p $dist_path
+cp $libs_path/bin/ffmpeg.exe $dist_path/
+echo "If successful, executables now available at ${dist_path}"

@@ -66,6 +66,11 @@ cp $patch_dir/bzip2-1.0.8/CMakeOptions.txt .
 cp $patch_dir/bzip2-1.0.8/bz2.pc.in .
 popd
 
+echo -e "\e[1;44m ----openjpeg----  \e[0m"
+openjpeg_git="https://github.com/uclouvain/openjpeg.git"
+openjpeg_ver="v2.5.0"
+git clone --depth 1 $openjpeg_git -b $openjpeg_ver openjpeg
+
 echo -e "\e[1;44m ----libpng----  \e[0m"
 libpng_git="https://github.com/glennrp/libpng.git"
 libpng_ver="v1.6.40"
@@ -82,7 +87,7 @@ libfreetype2_ver="VER-2-13-2"
 git clone --depth 1 $libfreetype2_git -b $libfreetype2_ver libfreetype2
 
 pushd libfreetype2
-patch -p0 < $patch_dir/freetype2-2-13-2/freetype2-2-13-2.diff
+patch -p0 < $patch_dir/freetype2-2.13.2/freetype2-2.13.2.diff
 popd
 
 echo -e "\e[1;44m --harfbuzz-  \e[0m"
@@ -105,12 +110,19 @@ fontconfig_git="https://gitlab.freedesktop.org/fontconfig/fontconfig.git"
 fontconfig_ver="2.15.0"
 git clone --depth 1 $fontconfig_git -b $fontconfig_ver fontconfig
 
-echo -e "\e[1;44m -----ass----  \e[0m"
-#libass_git="https://github.com/libass/libass.git"
-#libass_ver="0.17.1" 
+echo -e "\e[1;44m -----libass----  \e[0m"
 libass_git="https://github.com/TypesettingTools/libass.git"
 libass_ver="meson-pr"
 git clone --depth 1 $libass_git -b $libass_ver libass
+
+echo -e "\e[1;44m -----libvpx----  \e[0m"
+libvpx_git="https://chromium.googlesource.com/webm/libvpx"
+libvpx_ver="v1.13.1"
+git clone --depth 1 $libvpx_git -b $libvpx_ver libvpx
+
+pushd libvpx
+patch -p0 < $patch_dir/libvpx-1.13.1/libvpx-1.13.1.diff
+popd
 
 echo -e "\e[1;44m ---ffmpeg----  \e[0m"
 ffmpeg_git="https://git.ffmpeg.org/ffmpeg.git"

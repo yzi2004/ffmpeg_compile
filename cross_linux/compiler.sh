@@ -18,7 +18,7 @@ function cmake_compile(){
 
 	cmake -G "Ninja" \
 	        -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-	        -DCMAKE_INSTALL_PREFIX=$dist_path \
+	        -DCMAKE_INSTALL_PREFIX=$libs_path \
 		-DCMAKE_BUILD_TYPE=Release \
 	        $2 \
 	        $sources_path/$src_path
@@ -30,7 +30,7 @@ function cmake_compile(){
 function cmake_compile_only(){
         cmake -G "Ninja" \
                 -DCMAKE_TOOLCHAIN_FILE="$config_dir/cross_for_windows.cmake" \
-                -DCMAKE_INSTALL_PREFIX=$dist_path \
+                -DCMAKE_INSTALL_PREFIX=$libs_path \
                 $2 \
                 $sources_path/$1
 
@@ -55,7 +55,7 @@ function meson_compile(){
         mkdir -p $1
         pushd $1
 	
-	meson setup --prefix=$dist_path \
+	meson setup --prefix=$libs_path \
 		--cross-file=$config_dir/cross_for_windows_meson.txt \
 	        --buildtype=release \
 		--default-library=static \
