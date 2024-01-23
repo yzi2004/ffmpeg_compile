@@ -1,0 +1,138 @@
+diff -ur source/common/x86/const-a.asm new/source/common/x86/const-a.asm
+--- source/common/x86/const-a.asm	2024-01-23 17:23:21.278753811 +0900
++++ new/source/common/x86/const-a.asm	2024-01-23 17:24:05.768741836 +0900
+@@ -100,7 +100,7 @@
+ const pw_2000,              times 16 dw 0x2000
+ const pw_8000,              times  8 dw 0x8000
+ const pw_3fff,              times 16 dw 0x3fff
+-const pw_32_0,              times  4 dw 32,
++const pw_32_0,              times  4 dw 32
+                             times  4 dw 0
+ const pw_pixel_max,         times 16 dw ((1 << BIT_DEPTH)-1)
+ 
+diff -ur source/common/x86/loopfilter.asm new/source/common/x86/loopfilter.asm
+--- source/common/x86/loopfilter.asm	2024-01-23 17:28:24.388668149 +0900
++++ new/source/common/x86/loopfilter.asm	2024-01-23 17:29:34.898647986 +0900
+@@ -3867,7 +3867,7 @@
+     movh            [r0 + r6], m0
+     movhps          [r0 + r1], m0
+     movh            [r0], m3
+-    movhps          [r0 + r2 * 2], m3,
++    movhps          [r0 + r2 * 2], m3
+     movh            [r0 + r2 * 1], m9
+     movhps          [r0 + r1 * 2], m9
+ %else
+diff -ur source/common/x86/x86inc.asm new/source/common/x86/x86inc.asm
+--- source/common/x86/x86inc.asm	2024-01-23 17:23:21.278753811 +0900
++++ new/source/common/x86/x86inc.asm	2024-01-23 17:24:17.228738941 +0900
+@@ -401,16 +401,6 @@
+     %endif
+ %endmacro
+ 
+-%macro DEFINE_ARGS_INTERNAL 3+
+-    %ifnum %2
+-        DEFINE_ARGS %3
+-    %elif %1 == 4
+-        DEFINE_ARGS %2
+-    %elif %1 > 4
+-        DEFINE_ARGS %2, %3
+-    %endif
+-%endmacro
+-
+ %if WIN64 ; Windows x64 ;=================================================
+ 
+ DECLARE_REG 0,  rcx
+@@ -429,7 +419,7 @@
+ DECLARE_REG 13, R12, 112
+ DECLARE_REG 14, R13, 120
+ 
+-%macro PROLOGUE 2-5+ 0 ; #args, #regs, #xmm_regs, [stack_size,] arg_names...
++%macro PROLOGUE 2-5+ 0,0 ; #args, #regs, #xmm_regs, [stack_size,] arg_names...
+     %assign num_args %1
+     %assign regs_used %2
+     ASSERT regs_used >= num_args
+@@ -441,7 +431,15 @@
+         WIN64_SPILL_XMM %3
+     %endif
+     LOAD_IF_USED 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+-    DEFINE_ARGS_INTERNAL %0, %4, %5
++    %if %0 > 4
++        %ifnum %4
++            DEFINE_ARGS %5
++        %else
++            DEFINE_ARGS %4, %5
++        %endif
++    %elifnnum %4
++        DEFINE_ARGS %4
++    %endif
+ %endmacro
+ 
+ %macro WIN64_PUSH_XMM 0
+@@ -537,7 +535,7 @@
+ DECLARE_REG 13, R12, 64
+ DECLARE_REG 14, R13, 72
+ 
+-%macro PROLOGUE 2-5+ 0; #args, #regs, #xmm_regs, [stack_size,] arg_names...
++%macro PROLOGUE 2-5+ 0,0; #args, #regs, #xmm_regs, [stack_size,] arg_names...
+     %assign num_args %1
+     %assign regs_used %2
+     %assign xmm_regs_used %3
+@@ -547,7 +545,15 @@
+     PUSH_IF_USED 9, 10, 11, 12, 13, 14
+     ALLOC_STACK %4
+     LOAD_IF_USED 6, 7, 8, 9, 10, 11, 12, 13, 14
+-    DEFINE_ARGS_INTERNAL %0, %4, %5
++    %if %0 > 4
++        %ifnum %4
++            DEFINE_ARGS %5
++        %else
++            DEFINE_ARGS %4, %5
++        %endif
++    %elifnnum %4
++        DEFINE_ARGS %4
++    %endif
+ %endmacro
+ 
+ %define has_epilogue regs_used > 9 || stack_size > 0 || vzeroupper_required
+@@ -588,7 +594,7 @@
+ 
+ DECLARE_ARG 7, 8, 9, 10, 11, 12, 13, 14
+ 
+-%macro PROLOGUE 2-5+ ; #args, #regs, #xmm_regs, [stack_size,] arg_names...
++%macro PROLOGUE 2-5+ 0,0 ; #args, #regs, #xmm_regs, [stack_size,] arg_names...
+     %assign num_args %1
+     %assign regs_used %2
+     ASSERT regs_used >= num_args
+@@ -603,7 +609,15 @@
+     PUSH_IF_USED 3, 4, 5, 6
+     ALLOC_STACK %4
+     LOAD_IF_USED 0, 1, 2, 3, 4, 5, 6
+-    DEFINE_ARGS_INTERNAL %0, %4, %5
++    %if %0 > 4
++        %ifnum %4
++            DEFINE_ARGS %5
++        %else
++            DEFINE_ARGS %4, %5
++        %endif
++    %elifnnum %4
++        DEFINE_ARGS %4
++    %endif
+ %endmacro
+ 
+ %define has_epilogue regs_used > 3 || stack_size > 0 || vzeroupper_required
+diff -ur source/common/x86/x86util.asm new/source/common/x86/x86util.asm
+--- source/common/x86/x86util.asm	2024-01-23 17:23:21.278753811 +0900
++++ new/source/common/x86/x86util.asm	2024-01-23 17:24:39.398732766 +0900
+@@ -578,8 +578,10 @@
+     %elif %1==2
+         %if mmsize==8
+             SBUTTERFLY dq, %3, %4, %5
+-        %else
+-            TRANS q, ORDER, %3, %4, %5, %6
++        %elif %0 == 6
++	    TRANS q, ORDER, %3, %4, %5, %6
++	%else
++            TRANS q, ORDER, %3, %4, %5
+         %endif
+     %elif %1==4
+         SBUTTERFLY qdq, %3, %4, %5

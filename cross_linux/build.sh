@@ -98,7 +98,7 @@ cmake_compile_only "x265/source" "${options}"
 sed -i.orig "s/ -lx265/ -lc++ -lx265/" x265.pc
 sed -i.orig "s/ -lunwind -lunwind//" x265.pc
 mv libx265.a libx265_main.a
-ar -M <$patch_dir/x265.mri
+ar -M <$patch_dir/x265-3.5/x265.mri
 cmake --install .
 popd
 
@@ -183,21 +183,21 @@ meson_compile "fontconfig" "${options}"
 options="-Dtest=false"
 meson_compile "libass" "${options}"
 
-#$sources_path/libvpx/configure \
-#      --target=x86_64-win64-gcc \
-#      --prefix=$libs_path \
-#      --disable-docs \
-#      --disable-examples \
-#      --disable-tools \
-#      --enable-vp9-highbitdepth \
-#      --enable-better-hw-compatibility \
-#      --disable-install-docs \
-#      --disable-install-bins \
-#      --disable-unit-tests \
-#      --enable-vp8 \
-#      --enable-vp9 \
-#      --enable-small
-# make && make install
+$ources_path/libvpx/configure \
+      --target=x86_64-win64-gcc \
+      --prefix=$libs_path \
+      --disable-docs \
+      --disable-examples \
+      --disable-tools \
+      --enable-vp9-highbitdepth \
+      --enable-better-hw-compatibility \
+      --disable-install-docs \
+      --disable-install-bins \
+      --disable-unit-tests \
+      --enable-vp8 \
+      --enable-vp9 \
+      --enable-small
+ make && make install
 
 mkdir -p ffmpeg
 pushd ffmpeg

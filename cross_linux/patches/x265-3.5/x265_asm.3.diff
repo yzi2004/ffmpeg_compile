@@ -1,0 +1,15 @@
+--- source/common/x86/x86util.asm.orig	2024-01-23 16:48:08.409353777 +0900
++++ source/common/x86/x86util.asm	2024-01-23 16:49:58.419323108 +0900
+@@ -578,8 +578,10 @@
+     %elif %1==2
+         %if mmsize==8
+             SBUTTERFLY dq, %3, %4, %5
+-        %else
+-            TRANS q, ORDER, %3, %4, %5, %6
++        %elif %0 == 6
++	    TRANS q, ORDER, %3, %4, %5, %6
++	%else
++            TRANS q, ORDER, %3, %4, %5
+         %endif
+     %elif %1==4
+         SBUTTERFLY qdq, %3, %4, %5

@@ -23,6 +23,10 @@ X265_git="https://bitbucket.org/multicoreware/x265_git.git"
 X265_ver="3.5"
 git clone $X265_git -b $X265_ver x265
 
+pushd x265
+patch -b  -p1 < $patch_dir/x265-3.5/x265-asm.patch
+popd
+
 echo -e "\e[1;44m ---fdk-aac---  \e[0m"
 fdk_git="https://github.com/mstorsjo/fdk-aac.git"
 fdk_ver="v2.0.3"
