@@ -49,7 +49,7 @@ fi
 mkdir -p $build_path $libs_path 
 cd $build_path
 
-if [ -f "${flag_path}/x264" ]; then
+if [ ! -f "${flag_path}/x264" ]; then
 	#■■■■■■■compile x264
 	mkdir -p x264
 	pushd x264
