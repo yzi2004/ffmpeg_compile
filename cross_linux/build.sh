@@ -35,7 +35,7 @@ if [ -d "${libs_path}" ]; then
     rm -rf "${libs_path}"
 fi
 
-if [ "${1}" -ne "" ]; then
+if [ ${1} -ne "" ]; then
     if [ -d "${flag_path}" ]; then
         rm -rf "${flag_path}"
     fi
