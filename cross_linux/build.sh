@@ -60,7 +60,7 @@ if [ ! -f "${flag_path}/x264" ]; then
 	      --disable-win32thread \
 	      --cross-prefix=$host- \
 	      --prefix=$libs_path
-	make -j $threads
+	make -j $threads || exit 1
 	make install || exit 1
 	popd
         echo -n "" > $flag_path/x264
@@ -83,7 +83,7 @@ if [ ! -f "${flag_path}/x265" ]; then
 		-DCMAKE_POLICY_DEFAULT_CMP0091=NEW \
 		-DENABLE_ASSEMBLY=ON \
 		-DMAIN12=ON"
-	cmake_compile_only "x265/source" "${options}"
+	cmake_compile_only "x265/source" "${options}" || exit 1
 	
 	###10bit
 	cd ../10bit
@@ -96,7 +96,7 @@ if [ ! -f "${flag_path}/x265" ]; then
 		-DENABLE_ASSEMBLY=ON \
 		-DMAIN12=OFF"
 	
-	cmake_compile_only "x265/source" "${options}"
+	cmake_compile_only "x265/source" "${options}" || exit 1
 	
 	####8bit
 	cd ../8bit
@@ -112,13 +112,13 @@ if [ ! -f "${flag_path}/x265" ]; then
 		-DLINKED_10BIT=ON  \
 		-DLINKED_12BIT=ON'
 	
-	cmake_compile_only "x265/source" "${options}"
+	cmake_compile_only "x265/source" "${options}" || exit 1
 	
 	sed -i.orig "s/ -lx265/ -lc++ -lx265/" x265.pc
 	sed -i.orig "s/ -lunwind -lunwind//" x265.pc
 	mv libx265.a libx265_main.a
 	ar -M <$patch_dir/x265-3.5/x265.mri
-	cmake --install .
+	cmake --install . 
 	popd
  	echo -n "" > $flag_path/x265
  fi
@@ -126,14 +126,14 @@ if [ ! -f "${flag_path}/x265" ]; then
 if [ ! -f "${flag_path}/fdk-aac" ]; then
 	#■■■■■■■compile fdk-aac
 	options="-DBUILD_SHARED_LIBS=OFF"
-	cmake_compile "fdk-aac" "${options}"
+	cmake_compile "fdk-aac" "${options}" || exit 1
  	echo -n "" > $flag_path/fdk-aac
 fi
 
 if [ ! -f "${flag_path}/mp3lame" ]; then
 	#■■■■■■■compile mp3lame
 	options=""
-	cmake_compile "lame" "${options}"
+	cmake_compile "lame" "${options}" || exit 1
  	echo -n "" > $flag_path/mp3lame
 fi
 
@@ -147,19 +147,19 @@ if [ ! -f "${flag_path}/libaom" ]; then
 	       	-DENABLE_TESTDATA=OFF \
 	       	-DENABLE_TESTS=OFF \
 	       	-DENABLE_TOOLS=OFF"
-	cmake_compile "libaom" "${options}"
+	cmake_compile "libaom" "${options}" || exit 1
  	echo -n "" > $flag_path/libaom
 fi
 
 if [ ! -f "${flag_path}/zlib" ]; then
 	options="-DZLIB_SHARED=OFF" 
-	cmake_compile "zlib" "${options}"
+	cmake_compile "zlib" "${options}" || exit 1
  	echo -n "" > $flag_path/zlib
  fi
 
 if [ ! -f "${flag_path}/blib2" ]; then
 	options=""
-	cmake_compile "bzip2" "${options}"
+	cmake_compile "bzip2" "${options}" || exit 1
  	echo -n "" > $flag_path/bzip2
 fi
 
@@ -169,15 +169,25 @@ if [ ! -f "${flag_path}/libexpat" ]; then
 		-DEXPAT_BUILD_TESTS=OFF \
 		-DEXPAT_SHARED_LIBS=OFF \
 		-DEXPAT_BUILD_DOCS=OFF"
-	cmake_compile "libexpat" "${options}" "libexpat/expat"
+	cmake_compile "libexpat" "${options}" "libexpat/expat" || exit 1
  	echo -n "" > $flag_path/libexpat
 fi
 
 if [ ! -f "${flag_path}/libpng" ]; then
-	options="-DPNG_SHARED=OFF \
-	        -DPNG_EXECUTABLES=OFF \
-	        -DPNG_TESTS=OFF"
-	cmake_compile "libpng" "${options}"
+#	options="-DPNG_SHARED=OFF \
+#	        -DPNG_EXECUTABLES=OFF \
+#	        -DPNG_TESTS=OFF"
+#	cmake_compile "libpng" "${options}"
+	mkdir -p libpng
+	pushd libpng
+	$sources_path/libpng/configure \
+	      --host=$host \
+	      --build=$build \
+	      --enable-shared=false \
+	      --cross-prefix=$host- \
+	      --prefix=$libs_path
+	make -j $threads || exit 1
+	make install || exit 1
  	echo -n "" > $flag_path/libpng
 fi
 
