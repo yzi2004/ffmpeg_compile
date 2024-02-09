@@ -157,7 +157,7 @@ if [ ! -f "${flag_path}/zlib" ]; then
  	echo -n "" > $flag_path/zlib
  fi
 
-if [ ! -f "${flag_path}/blib2" ]; then
+if [ ! -f "${flag_path}/blip2" ]; then
 	options=""
 	cmake_compile "bzip2" "${options}" || exit 1
  	echo -n "" > $flag_path/bzip2
