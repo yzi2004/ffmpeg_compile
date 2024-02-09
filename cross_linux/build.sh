@@ -180,7 +180,9 @@ if [ ! -f "${flag_path}/libpng" ]; then
 #	cmake_compile "libpng" "${options}"
 	mkdir -p libpng
 	pushd libpng
-	$sources_path/libpng/configure \
+	CFLAGS="-I${libs_path}/include" \
+ 	LDFLAGS="-L${libs_path}/lib" \
+ 	$sources_path/libpng/configure \
 	      --host=$host \
 	      --build=$build \
 	      --enable-shared=false \
