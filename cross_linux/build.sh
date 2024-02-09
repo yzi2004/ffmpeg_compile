@@ -61,7 +61,7 @@ if [ ! -f "${flag_path}/x264" ]; then
 	      --cross-prefix=$host- \
 	      --prefix=$libs_path
 	make -j $threads
-	make install
+	make install || exit 1
 	popd
         echo -n "" > $flag_path/x264
 fi
@@ -151,89 +151,122 @@ if [ ! -f "${flag_path}/libaom" ]; then
  	echo -n "" > $flag_path/libaom
 fi
 
-if [ ! -f "${flag_path}/libaom" ]; then
+if [ ! -f "${flag_path}/zlib" ]; then
 	options="-DZLIB_SHARED=OFF" 
 	cmake_compile "zlib" "${options}"
- 
+ 	echo -n "" > $flag_path/zlib
+ fi
 
-options=""
-cmake_compile "bzip2" "${options}"
+if [ ! -f "${flag_path}/blib2" ]; then
+	options=""
+	cmake_compile "bzip2" "${options}"
+ 	echo -n "" > $flag_path/bzip2
+fi
 
-options="-DEXPAT_BUILD_TOOLS=OFF \
-	-DEXPAT_BUILD_EXAMPLES=OFF \
-	-DEXPAT_BUILD_TESTS=OFF \
-	-DEXPAT_SHARED_LIBS=OFF \
-	-DEXPAT_BUILD_DOCS=OFF"
-cmake_compile "libexpat" "${options}" "libexpat/expat"
+if [ ! -f "${flag_path}/libexpat" ]; then
+	options="-DEXPAT_BUILD_TOOLS=OFF \
+		-DEXPAT_BUILD_EXAMPLES=OFF \
+		-DEXPAT_BUILD_TESTS=OFF \
+		-DEXPAT_SHARED_LIBS=OFF \
+		-DEXPAT_BUILD_DOCS=OFF"
+	cmake_compile "libexpat" "${options}" "libexpat/expat"
+ 	echo -n "" > $flag_path/libexpat
+fi
 
-options="-DPNG_SHARED=OFF \
-        -DPNG_EXECUTABLES=OFF \
-        -DPNG_TESTS=OFF"
-cmake_compile "libpng" "${options}"
+if [ ! -f "${flag_path}/libpng" ]; then
+	options="-DPNG_SHARED=OFF \
+	        -DPNG_EXECUTABLES=OFF \
+	        -DPNG_TESTS=OFF"
+	cmake_compile "libpng" "${options}"
+ 	echo -n "" > $flag_path/libpng
+fi
 
-options="-DBUILD_SHARED_LIBS=OFF \
-        -DBUILD_PKGCONFIG_FILES=ON"
-cmake_compile "openjpeg" "${options}"
+if [ ! -f "${flag_path}/openjpeg" ]; then
+	options="-DBUILD_SHARED_LIBS=OFF \
+	        -DBUILD_PKGCONFIG_FILES=ON"
+	cmake_compile "openjpeg" "${options}"
+ 	echo -n "" > $flag_path/openjpeg
+fi
 
-options="-Dharfbuzz=disabled \
-	-Dbrotli=disabled \
-	-Dbzip2=enabled \
-	-Dpng=enabled \
-	-Dtests=disabled \
-	-Dzlib=enabled \
-	--wrap-mode=nofallback"
-meson_compile "libfreetype2" "${options}"
+if [ ! -f "${flag_path}/libfreetype2" ]; then
+	options="-Dharfbuzz=disabled \
+		-Dbrotli=disabled \
+		-Dbzip2=enabled \
+		-Dpng=enabled \
+		-Dtests=disabled \
+		-Dzlib=enabled \
+		--wrap-mode=nofallback"
+	meson_compile "libfreetype2" "${options}"
+ 	echo -n "" > $flag_path/libfreetype2
+fi
 
-options="-Dfreetype=enabled \
-        -Dgdi=disabled \
-        -Dtests=disabled \
-        -Ddocs=disabled \
-        --wrap-mode=nofallback"
-meson_compile "harfbuzz" "${options}"
+if [ ! -f "${flag_path}/harfbuzz" ]; then
+	options="-Dfreetype=enabled \
+	        -Dgdi=disabled \
+	        -Dtests=disabled \
+	        -Ddocs=disabled \
+	        --wrap-mode=nofallback"
+	meson_compile "harfbuzz" "${options}"
+ 	echo -n "" > $flag_path/harfbuzz
+fi
 
-options="-Dharfbuzz=enabled \
-        -Dbrotli=disabled \
-        -Dbzip2=enabled \
-        -Dpng=enabled \
-        -Dtests=disabled \
-        -Dzlib=enabled \
-        --wrap-mode=nofallback"
-meson_compile "libfreetype2" "${options}"
+if [ ! -f "${flag_path}/libfreetype2withharfbuzz" ]; then
+	options="-Dharfbuzz=enabled \
+	        -Dbrotli=disabled \
+	        -Dbzip2=enabled \
+	        -Dpng=enabled \
+	        -Dtests=disabled \
+	        -Dzlib=enabled \
+	        --wrap-mode=nofallback"
+	meson_compile "libfreetype2" "${options}"
+	echo -n "" > $flag_path/libfreetype2withharfbuzz
+fi
 
-options="-Ddocs=false \
-        -Dbin=false \
-        -Dtests=false \
-        --wrap-mode=nofallback"
-meson_compile "fribidi" "${options}"
+if [ ! -f "${flag_path}/fribidi" ]; then
+	options="-Ddocs=false \
+	        -Dbin=false \
+	        -Dtests=false \
+	        --wrap-mode=nofallback"
+	meson_compile "fribidi" "${options}"
+ 	echo -n "" > $flag_path/fribidi
+fi
 
-options=" -Ddoc=disabled \
-     -Dtests=disabled \
-     -Dtools=disabled \
-     --wrap-mode=nofallback"
-meson_compile "fontconfig" "${options}"
+if [ ! -f "${flag_path}/fontconfig" ]; then
+	options=" -Ddoc=disabled \
+	     -Dtests=disabled \
+	     -Dtools=disabled \
+	     --wrap-mode=nofallback"
+	meson_compile "fontconfig" "${options}"
+	echo -n "" > $flag_path/fontconfig
+fi
 
-options="-Dtest=false"
-meson_compile "libass" "${options}"
+if [ ! -f "${flag_path}/libass" ]; then
+	options="-Dtest=false"
+	meson_compile "libass" "${options}"
+ 	echo -n "" > $flag_path/libass
+fi
 
-$ources_path/libvpx/configure \
-      --target=x86_64-win64-gcc \
-      --prefix=$libs_path \
-      --disable-docs \
-      --disable-examples \
-      --disable-tools \
-      --enable-vp9-highbitdepth \
-      --enable-better-hw-compatibility \
-      --disable-install-docs \
-      --disable-install-bins \
-      --disable-unit-tests \
-      --enable-vp8 \
-      --enable-vp9 \
-      --enable-small
- make && make install
+if [ ! -f "${flag_path}/libvpx" ]; then
+	$ources_path/libvpx/configure \
+	      --target=x86_64-win64-gcc \
+	      --prefix=$libs_path \
+	      --disable-docs \
+	      --disable-examples \
+	      --disable-tools \
+	      --enable-vp9-highbitdepth \
+	      --enable-better-hw-compatibility \
+	      --disable-install-docs \
+	      --disable-install-bins \
+	      --disable-unit-tests \
+	      --enable-vp8 \
+	      --enable-vp9 \
+	      --enable-small
+	 make && make install
+ 	echo -n "" > $flag_path/libvpx
+fi
 
 mkdir -p ffmpeg
 pushd ffmpeg
-
 $sources_path/ffmpeg/configure --prefix=$libs_path \
         --arch=x86_64 \
         --target-os=mingw32 \
