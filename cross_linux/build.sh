@@ -184,7 +184,6 @@ if [ ! -f "${flag_path}/libpng" ]; then
 	      --host=$host \
 	      --build=$build \
 	      --enable-shared=false \
-	      --cross-prefix=$host- \
 	      --prefix=$libs_path
 	make -j $threads || exit 1
 	make install || exit 1
