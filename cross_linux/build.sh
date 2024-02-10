@@ -173,31 +173,31 @@ if [ ! -f "${flag_path}/libexpat" ]; then
  	echo -n "" > $flag_path/libexpat
 fi
 
-if [ ! -f "${flag_path}/libpng" ]; then
+#if [ ! -f "${flag_path}/libpng" ]; then
 #	options="-DPNG_SHARED=OFF \
 #	        -DPNG_EXECUTABLES=OFF \
 #	        -DPNG_TESTS=OFF"
 #	cmake_compile "libpng" "${options}"
-	mkdir -p libpng
-	pushd libpng
-	CFLAGS="-I${libs_path}/include" \
- 	LDFLAGS="-L${libs_path}/lib" \
- 	$sources_path/libpng/configure \
-	      --host=$host \
-	      --build=$build \
-	      --enable-shared=false \
-	      --prefix=$libs_path
-	make -j $threads || exit 1
-	make install || exit 1
- 	echo -n "" > $flag_path/libpng
-fi
+#	mkdir -p libpng
+#	pushd libpng
+#	CFLAGS="-I${libs_path}/include" \
+#	LDFLAGS="-L${libs_path}/lib" \
+# 	$sources_path/libpng/configure \
+#	      --host=$host \
+#	      --build=$build \
+#	      --enable-shared=false \
+#	      --prefix=$libs_path
+#	make -j $threads || exit 1
+#	make install || exit 1
+#	echo -n "" > $flag_path/libpng
+#fi
 
-if [ ! -f "${flag_path}/openjpeg" ]; then
-	options="-DBUILD_SHARED_LIBS=OFF \
-	        -DBUILD_PKGCONFIG_FILES=ON"
-	cmake_compile "openjpeg" "${options}"
- 	echo -n "" > $flag_path/openjpeg
-fi
+#if [ ! -f "${flag_path}/openjpeg" ]; then
+#	options="-DBUILD_SHARED_LIBS=OFF \
+#	        -DBUILD_PKGCONFIG_FILES=ON"
+#	cmake_compile "openjpeg" "${options}"
+#	echo -n "" > $flag_path/openjpeg
+#fi
 
 if [ ! -f "${flag_path}/libfreetype2" ]; then
 	options="-Dharfbuzz=disabled \
