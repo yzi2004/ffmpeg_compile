@@ -20,7 +20,7 @@ git clone --depth 1 $X264_git -b $X264_ver x264
 
 echo -e "\e[1;44m ----x265-----  \e[0m"
 X265_git="https://bitbucket.org/multicoreware/x265_git.git"
-X265_ver="3.5"
+X265_ver="4.1"
 git clone $X265_git -b $X265_ver x265
 
 pushd x265
@@ -87,7 +87,7 @@ git clone --depth 1 $brotli_git -b $brotli_ver brotli
 
 echo -e "\e[1;44m --freetype2-  \e[0m"
 libfreetype2_git="https://gitlab.freedesktop.org/freetype/freetype.git"
-libfreetype2_ver="VER-2-13-2"
+libfreetype2_ver="VER-2-13-3"
 git clone --depth 1 $libfreetype2_git -b $libfreetype2_ver libfreetype2
 
 pushd libfreetype2
@@ -96,22 +96,22 @@ popd
 
 echo -e "\e[1;44m --harfbuzz-  \e[0m"
 harfbuzz_git="https://github.com/harfbuzz/harfbuzz.git"
-harfbuzz_ver="8.3.0"
+harfbuzz_ver="10.2.0"
 git clone --depth 1 $harfbuzz_git -b $harfbuzz_ver harfbuzz
 
 echo -e "\e[1;44m --fribidi-  \e[0m"
 fribidi_git="https://github.com/fribidi/fribidi.git"
-fribidi_ver="v1.0.13" 
+fribidi_ver="v1.0.16" 
 git clone --depth 1 $fribidi_git -b $fribidi_ver fribidi
 
 echo -e "\e[1;44m --libexpat-  \e[0m"
 libexpat_git="https://github.com/libexpat/libexpat.git"
-libexpat_ver="R_2_5_0"
+libexpat_ver="R_2_6_4"
 git clone --depth 1 $libexpat_git -b $libexpat_ver libexpat
 
 echo -e "\e[1;44m --fontconfig-  \e[0m"
 fontconfig_git="https://gitlab.freedesktop.org/fontconfig/fontconfig.git"
-fontconfig_ver="2.15.0"
+fontconfig_ver="2.16.0"
 git clone --depth 1 $fontconfig_git -b $fontconfig_ver fontconfig
 
 echo -e "\e[1;44m -----libass----  \e[0m"
@@ -121,7 +121,7 @@ git clone --depth 1 $libass_git -b $libass_ver libass
 
 echo -e "\e[1;44m -----libvpx----  \e[0m"
 libvpx_git="https://chromium.googlesource.com/webm/libvpx"
-libvpx_ver="v1.13.1"
+libvpx_ver="v1.15.0"
 git clone --depth 1 $libvpx_git -b $libvpx_ver libvpx
 
 pushd libvpx
@@ -130,5 +130,5 @@ popd
 
 echo -e "\e[1;44m ---ffmpeg----  \e[0m"
 ffmpeg_git="https://git.ffmpeg.org/ffmpeg.git"
-ffmpeg_ver="n6.1"
+ffmpeg_ver="n7.1"
 git clone --depth 1 $ffmpeg_git -b $ffmpeg_ver ffmpeg
