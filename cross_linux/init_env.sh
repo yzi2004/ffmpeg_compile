@@ -8,6 +8,6 @@ rm llvm-mingw-20250114-ucrt-ubuntu-20.04-x86_64.tar.xz
 
 sudo mv llvm-mingw-20250114-ucrt-ubuntu-20.04-x86_64 /opt/llvm-mingw-ucrt-x86_64
 
-echo -e '\nPATH="/opt/llvm-mingw-ucrt-x86_64/bin:$PATH"' >> .profile
+echo -e '\nPATH="/opt/llvm-mingw-ucrt-x86_64/bin:$PATH"' >> ~/.profile
 
 source .profile
